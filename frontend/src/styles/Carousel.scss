@@ -1,0 +1,112 @@
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 0px 10px #1a1a1a;
+  position: relative;
+}
+
+.media-list {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  scroll-behavior: smooth;
+  max-width: 100%;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-align: start;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.media-list::-webkit-scrollbar {
+  display: none;
+}
+
+.card-media {
+  scroll-snap-align: start;
+  min-width: 300px;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  position: relative;
+}
+
+.carousel-button {
+  background-color: #1a1a1a;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: whitesmoke;
+  padding: 5px 10px;
+  border-radius: 20px;
+  transition: background-color 0.5s;
+}
+
+.carousel-button:hover {
+  background-color: whitesmoke;
+}
+
+.left-button {
+  background-color: #ebbf85;
+  opacity: 60%;
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: black;
+  padding: 4px 9px;
+  border-radius: 4px;
+  position: absolute;
+  top: 45%;
+  left: 10px;
+  transform: translateY(-50%);
+  z-index: 1;
+  border-radius: 20%;
+}
+
+.right-button {
+  background-color: #ebbf85;
+  opacity: 60%;
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: black;
+  padding: 4px 9px;
+  border-radius: 4px;
+  position: absolute;
+  top: 35%;
+  right: 10px;
+  transform: translateY(-50%);
+  z-index: 1;
+  border-radius: 20%;
+  transform: rotate(180deg);
+}
+
+@media screen and (max-width: 650px) {
+  .carousel-container {
+    .media-list {
+      justify-content: center;
+    }
+
+    .movie-card:nth-child(n + 2) {
+      display: none;
+    }
+
+    .serie-card:nth-child(n + 2) {
+      display: none;
+    }
+
+    .carousel-button:hover {
+      background-color: #ebbf85;
+      opacity: 100;
+    }
+  }
+}
