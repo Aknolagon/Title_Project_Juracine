@@ -1,0 +1,168 @@
+.info-card-serie {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "title title"
+    "synopsis trailer"
+    "release trailer"
+    "actors rating-title";
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  z-index: 999;
+  width: 100%;
+  max-width: 40%;
+  background-color: rgba(30, 4, 4);
+  border-radius: 20px;
+  padding: 3%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: whitesmoke;
+  gap: 2%;
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 2%;
+  }
+
+  .close-button img {
+    width: 30px;
+    height: auto;
+  }
+  .serieTitle {
+    margin: auto;
+    width: 60%;
+    padding: 1rem;
+    border-radius: 20px;
+    grid-area: title;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    color: #ebbf85;
+    box-shadow: 0px 0px 6px #ebbf85;
+    background-color: #1a1a1a;
+  }
+
+  .synopsis {
+    font-size: 1.2rem;
+    margin-top: 10%;
+    grid-area: synopsis;
+    text-align: left;
+  }
+
+  .release {
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+    grid-area: release;
+    font-weight: 800;
+    text-align: left;
+  }
+
+  .actors {
+    grid-area: actors;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+  }
+
+  .trailer {
+    grid-area: trailer;
+    justify-self: end;
+    width: 100%;
+    max-width: 560px;
+    height: 315px;
+  }
+
+  iframe {
+    margin-top: 40%;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .rating-title {
+    margin-top: 40%;
+    grid-area: rating-title;
+    justify-self: center;
+    text-align: center;
+  }
+  .rating {
+    margin: auto;
+  }
+  .serieTitle {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .info-card-serie {
+    display: flex;
+    flex-direction: column;
+    min-width: 90vw;
+    padding: 10px 10px;
+    border-radius: 20px;
+
+    .synopsis {
+      display: none;
+    }
+
+    iframe {
+      margin: 0;
+      margin-top: 2rem;
+      width: 70%;
+      margin: auto;
+    }
+
+    .actors {
+      display: none;
+    }
+
+    .trailer {
+      display: none;
+      height: 20%;
+    }
+
+    .release {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .rating-title {
+      margin: 0;
+      margin-top: 2rem;
+    }
+    .rating {
+      justify-content: center;
+    }
+  }
+}
