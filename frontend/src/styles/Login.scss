@@ -1,0 +1,165 @@
+.login {
+  background-image: url("../assets/iStock-486175530.jpg");
+  background-repeat: none;
+  height: auto;
+  width: 100%;
+  min-height: 100vh;
+  background-position: center center;
+  opacity: 90%;
+  background-size: cover;
+  position: fixed;
+
+  .logo {
+    display: block;
+    margin: auto;
+    margin-top: 3rem;
+    width: 30%;
+    margin-bottom: 4rem;
+  }
+
+  section {
+    width: 80%;
+    max-width: 20rem;
+    min-height: 20rem;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-color: #ebbf85;
+    color: #ebbf85;
+    text-align: center;
+    border-radius: 30px;
+    box-shadow: 0px 10px 25px black;
+    cursor: pointer;
+    margin: auto;
+    opacity: 100%;
+    margin-top: 5%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+  }
+
+  a {
+    text-decoration: none;
+  }
+  a,
+  a:visited {
+    color: #ebbf85;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  textarea {
+    font-family: "Nunito", sans-serif;
+    font-size: 22px;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    margin-top: 0.5rem;
+    width: 65%;
+    margin: auto;
+    margin-bottom: 1rem;
+  }
+
+  label,
+  button {
+    margin-top: 1rem;
+  }
+
+  button {
+    padding: 0.45rem;
+    border-radius: 20px;
+    font-size: 20px;
+    width: 60%;
+    margin: auto;
+    background-color: transparent;
+    border-style: solid;
+    border-color: #ebbf85;
+  }
+
+  .instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #514c4c;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+    margin-bottom: 1rem;
+  }
+
+  .instructions > svg {
+    margin-right: 0.25rem;
+  }
+
+  .offscreen {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+  }
+
+  .invalid {
+    color: red;
+    margin-left: 0.25rem;
+  }
+
+  .errmsg {
+    background-color: lightpink;
+    color: firebrick;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .line {
+    display: inline-block;
+  }
+}
+@media screen and (min-width: 650px) {
+  .login {
+    background-image: url("../assets/iStock-486175530.jpg");
+    background-repeat: none;
+    width: 100%;
+    min-height: 100vh;
+    background-position: center center;
+    opacity: 90%;
+
+    label {
+      margin-bottom: 0.5rem;
+    }
+
+    section {
+      width: 80%;
+      max-width: 25rem;
+      min-height: 25rem;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      border-radius: 30px;
+      box-shadow: 0px 10px 25px black;
+      cursor: pointer;
+      margin: auto;
+      margin-top: 5%;
+    }
+
+    .logo {
+      display: block;
+      margin: auto;
+      margin-top: 3rem;
+      width: 10%;
+    }
+  }
+}

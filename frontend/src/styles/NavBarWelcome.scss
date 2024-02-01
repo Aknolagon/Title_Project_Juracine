@@ -1,0 +1,16 @@
+.navbarwelcome {
+  display: flex;
+  background-color: transparent;
+  justify-content: center;
+  font-family: "AbeeZee", sans-serif;
+  font-size: 1.3rem;
+  color: #ebbf85;
+  display: flex;
+  gap: 2rem;
+
+  a {
+    margin-top: 5rem;
+    text-decoration: none;
+    color: #ebbf85;
+  }
+}

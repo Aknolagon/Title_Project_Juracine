@@ -1,0 +1,87 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    text-align: center;
+    color: whitesmoke;
+  }
+
+  .form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 50%;
+    gap: 2rem;
+    margin-left: 5rem;
+
+    input {
+      background: #ebbf85;
+      color: black;
+      border-radius: 1rem;
+      padding: 10px 15px;
+    }
+
+    ::placeholder {
+      color: whitesmoke;
+    }
+
+    .input-adress {
+      grid-column: 2/3;
+    }
+  }
+
+  .btn-details {
+    display: flex;
+    gap: 5rem;
+    margin: auto;
+    margin-top: 3rem;
+
+    .btn-update,
+    .btn-delete {
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      background: #ebbf85;
+      color: black;
+    }
+  }
+  .confirmation-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    .btn-confirm {
+      cursor: pointer;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 1rem;
+      transition: all 0.3s ease-in-out;
+      background: #ebbf85;
+      color: red;
+    }
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .profile {
+    .form {
+      width: 90%;
+    }
+
+    .btn-details {
+      margin-top: 5rem;
+      .btn-update,
+      .btn-delete {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
