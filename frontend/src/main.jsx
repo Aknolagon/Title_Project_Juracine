@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Movies from "./pages/Movies";
 import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 import Series from "./pages/Series";
 import Welcome from "./pages/Welcome";
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
       {
         path: "/login",
