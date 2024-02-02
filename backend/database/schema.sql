@@ -9,9 +9,10 @@ DROP TABLE IF EXISTS roles;
 CREATE TABLE users (
   user_id int auto_increment PRIMARY KEY,
   email varchar(100) not null,
-  password text not null,
+  hashed_password text not null,
   confirmation_inscription boolean,
   created_date datetime default current_timestamp,
+  last_connexion datetime default current_timestamp,
   constraint unique_email unique (email)
 );
 

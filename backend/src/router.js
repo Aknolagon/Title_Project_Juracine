@@ -2,22 +2,40 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
+// const { hashPassword, verifyToken } = require("./services/auth");
 
-// Import itemControllers module for handling item-related operations
-const itemControllers = require("./controllers/itemControllers");
+const usersControllers = require("./controllers/usersControllers");
+const profilesControllers = require("./controllers/profilesControllers");
+const rolesControllers = require("./controllers/rolesControllers");
+const favoritesControllers = require("./controllers/favoritesControllers");
+// const authControllers = require("./controllers/authControllers");
 
-// Route to get a list of items
-router.get("/items", itemControllers.browse);
+// favorites
+router.get("/favorites", favoritesControllers.browse);
+router.get("/favorites/:id", favoritesControllers.read);
+router.post("/favorites", favoritesControllers.add);
+router.delete("/favorites/:id", favoritesControllers.destroy);
 
-// Route to get a specific item by ID
-router.get("/items/:id", itemControllers.read);
+// profiles
+router.get("/profiles", profilesControllers.browse);
+router.get("/profiles/:user_id", profilesControllers.read);
+router.put("/profiles/:id", profilesControllers.edit);
+router.post("/profiles", profilesControllers.add);
+router.delete("/profiles/:id", profilesControllers.destroy);
 
-// Route to add a new item
-router.post("/items", itemControllers.add);
+// roles
+router.get("/roles", rolesControllers.browse);
+router.get("/roles/profile/:id", rolesControllers.read);
+router.put("/roles/:id", rolesControllers.edit);
+router.post("/roles", rolesControllers.add);
+router.delete("/roles/:id", rolesControllers.destroy);
 
-/* ************************************************************************* */
+// users
+router.get("/users", usersControllers.browse);
+router.get("/users/:id", usersControllers.read);
+router.put("/users/:id", usersControllers.edit);
+router.post("/users", usersControllers.add);
+// router.post("/users/login", authControllers.login);
+router.delete("/users/:id", usersControllers.destroy);
 
 module.exports = router;

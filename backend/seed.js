@@ -9,7 +9,7 @@ const seed = async () => {
     await database.query("delete from users");
     queries.push(
       database.query(
-        "insert into users (email, password, confirmation_inscription, created_date) values ('kalki@gmail.com', 'yoyo', '1', '2024-01-01 00:00:00')"
+        "insert into users (email, hashed_password, confirmation_inscription, created_date) values ('kalki@gmail.com', 'yoyo', '1', '2024-01-01 00:00:00')"
       )
     );
 
