@@ -18,7 +18,7 @@ class FavoritesManager extends AbstractManager {
   // R
   async read(userId) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
+      `SELECT * FROM ${this.table} WHERE user_id = ?`,
       [userId]
     );
     return rows[0];

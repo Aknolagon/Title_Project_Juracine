@@ -9,7 +9,7 @@ const seed = async () => {
     await database.query("delete from users");
     queries.push(
       database.query(
-        "insert into users (email, hashed_password, confirmation_inscription, created_date) values ('kalki@gmail.com', 'yoyo', '1', '2024-01-01 00:00:00')"
+        "insert into users (email, hashed_password, confirmation_inscription, created_date, last_connexion) values ('kalki@gmail.com', 'yoyo', '1', '2024-01-01 00:00:00', '2024-01-01 00:00:00')"
       )
     );
 
@@ -24,6 +24,13 @@ const seed = async () => {
     queries.push(
       database.query(
         "insert into roles (profile_id, role_name) values ('1','Admin')"
+      )
+    );
+
+    await database.query("delete from favorites");
+    queries.push(
+      database.query(
+        "insert into favorites (user_id, date_added) values ('1','2024-01-01 00:00:00')"
       )
     );
 

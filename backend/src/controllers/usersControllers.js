@@ -13,7 +13,7 @@ const browse = async (req, res, next) => {
 // R
 const read = async (req, res, next) => {
   try {
-    const user = await tables.users.read(req.params.user_id);
+    const user = await tables.users.read(req.params.id);
     if (user == null) {
       res.sendStatus(404);
     } else {
@@ -27,9 +27,11 @@ const read = async (req, res, next) => {
 // E
 const edit = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { userId } = req.params;
     const user = req.body;
-    const [result] = await tables.users.update({ id, ...user });
+    console.info("Before edit:", user);
+    const [result] = await tables.users.update({ userId, ...user });
+    console.info("After edit:", result);
 
     if (result.affectedRows === 0) {
       res.sendStatus(404);
@@ -37,6 +39,7 @@ const edit = async (req, res, next) => {
       res.sendStatus(204);
     }
   } catch (err) {
+    console.error("Edit error:", err);
     res.sendStatus(500);
     next(err);
   }
