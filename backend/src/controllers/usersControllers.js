@@ -27,10 +27,10 @@ const read = async (req, res, next) => {
 // E
 const edit = async (req, res, next) => {
   try {
-    const { userId } = req.params;
+    const { id } = req.params;
     const user = req.body;
     console.info("Before edit:", user);
-    const [result] = await tables.users.update({ userId, ...user });
+    const [result] = await tables.users.update({ id, ...user });
     console.info("After edit:", result);
 
     if (result.affectedRows === 0) {
@@ -39,7 +39,6 @@ const edit = async (req, res, next) => {
       res.sendStatus(204);
     }
   } catch (err) {
-    console.error("Edit error:", err);
     res.sendStatus(500);
     next(err);
   }

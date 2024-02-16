@@ -33,7 +33,7 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
     res.status(200).json({ message: "Logout successfully" });
   } catch (error) {
     console.error("Erreur lors de la déconnexion :", error);

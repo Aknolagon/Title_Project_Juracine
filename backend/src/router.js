@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-// const { hashPassword, verifyToken } = require("./services/auth");
+// const { hashPassword } = require("./middlewares/auth");
 
 const usersControllers = require("./controllers/usersControllers");
 const profilesControllers = require("./controllers/profilesControllers");

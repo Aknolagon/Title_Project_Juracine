@@ -9,19 +9,12 @@ class UsersManager extends AbstractManager {
   async create({
     email,
     hashedPassword,
-    confirmationInscription,
-    createdDate,
+    createdDate = new Date(),
     lastConnexion = new Date(),
   }) {
     const [rows] = await this.database.query(
-      `INSERT INTO ${this.table} (email, hashed_password, confirmation_inscription, created_date, last_connexion) VALUES (?,?,?,?,?)`,
-      [
-        email,
-        hashedPassword,
-        confirmationInscription,
-        new Date(createdDate),
-        lastConnexion,
-      ]
+      `INSERT INTO ${this.table} (email, hashed_password, created_date, last_connexion) VALUES (?,?,?,?)`,
+      [email, hashedPassword, createdDate, lastConnexion]
     );
     return rows.insertId;
   }
@@ -35,13 +28,13 @@ class UsersManager extends AbstractManager {
     return rows[0];
   }
 
-  // async readByEmailWithPassword(email) {
-  //   const [rows] = await this.database.query(
-  //     `select * from ${this.table} where email = ?`,
-  //     [email]
-  //   );
-  //   return rows[0];
-  // }
+  async readByEmailWithPassword(email) {
+    const [rows] = await this.database.query(
+      `select * from ${this.table} where email = ?`,
+      [email]
+    );
+    return rows[0];
+  }
 
   async readAll() {
     const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
@@ -49,24 +42,10 @@ class UsersManager extends AbstractManager {
   }
 
   // U
-  async update({
-    email,
-    hashedPassword,
-    confirmationInscription,
-    createdDate,
-    lastConnexion,
-    userId,
-  }) {
+  async update({ email, hashedPassword, lastConnexion, userId }) {
     const [rows] = await this.database.query(
-      `UPDATE ${this.table} SET email=?, hashed_password=?, confirmation_inscription=?, created_date=?, last_connexion=? WHERE user_id=?`,
-      [
-        email,
-        hashedPassword,
-        confirmationInscription,
-        new Date(createdDate),
-        new Date(lastConnexion),
-        userId,
-      ]
+      `UPDATE ${this.table} SET email=?, hashed_password=?, last_connexion=? WHERE user_id=?`,
+      [email, hashedPassword, lastConnexion, userId]
     );
     return [rows];
   }
