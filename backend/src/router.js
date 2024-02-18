@@ -2,19 +2,13 @@ const express = require("express");
 
 const router = express.Router();
 
-// const { hashPassword } = require("./middlewares/auth");
+const { hashPassword } = require("./middlewares/auth");
 
 const usersControllers = require("./controllers/usersControllers");
 const profilesControllers = require("./controllers/profilesControllers");
 const rolesControllers = require("./controllers/rolesControllers");
-const favoritesControllers = require("./controllers/favoritesControllers");
+const userrolesControllers = require("./controllers/userrolesControllers");
 // const authControllers = require("./controllers/authControllers");
-
-// favorites
-router.get("/favorites", favoritesControllers.browse);
-router.get("/favorites/:id", favoritesControllers.read);
-router.post("/favorites", favoritesControllers.add);
-router.delete("/favorites/:id", favoritesControllers.destroy);
 
 // profiles
 router.get("/profiles", profilesControllers.browse);
@@ -25,7 +19,7 @@ router.delete("/profiles/:id", profilesControllers.destroy);
 
 // roles
 router.get("/roles", rolesControllers.browse);
-router.get("/roles/profile/:id", rolesControllers.read);
+router.get("/roles/:id", rolesControllers.read);
 router.put("/roles/:id", rolesControllers.edit);
 router.post("/roles", rolesControllers.add);
 router.delete("/roles/:id", rolesControllers.destroy);
@@ -34,8 +28,15 @@ router.delete("/roles/:id", rolesControllers.destroy);
 router.get("/users", usersControllers.browse);
 router.get("/users/:id", usersControllers.read);
 router.put("/users/:id", usersControllers.edit);
-router.post("/users", usersControllers.add);
+router.post("/users", hashPassword, usersControllers.add);
 // router.post("/users/login", authControllers.login);
 router.delete("/users/:id", usersControllers.destroy);
+
+// userRoles
+router.get("/userroles", userrolesControllers.browse);
+router.get("/userroles/:id", userrolesControllers.read);
+router.put("/userroles/:id", userrolesControllers.edit);
+router.post("/userroles", userrolesControllers.add);
+router.delete("/userroles/:id", userrolesControllers.destroy);
 
 module.exports = router;

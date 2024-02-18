@@ -3,8 +3,8 @@ const tables = require("../tables");
 // B
 const browse = async (req, res, next) => {
   try {
-    const favorites = await tables.favorites.readAll();
-    res.json(favorites);
+    const userRoles = await tables.user_roles.readAllUserRoles();
+    res.json(userRoles);
   } catch (err) {
     next(err);
   }
@@ -13,7 +13,7 @@ const browse = async (req, res, next) => {
 // R
 const read = async (req, res, next) => {
   try {
-    const favorite = await tables.favorites.read(req.params.user_id);
+    const favorite = await tables.user_roles.readUserRoles(req.params.user_id);
     if (favorite == null) {
       res.sendStatus(404);
     } else {
@@ -27,9 +27,12 @@ const read = async (req, res, next) => {
 // E
 const edit = async (req, res, next) => {
   try {
-    const favorite = req.body;
+    const userRole = req.body;
     const { id } = req.params;
-    const [result] = await tables.favorites.update({ ...favorite, id });
+    const [result] = await tables.user_roles.updateUserRoles({
+      ...userRole,
+      id,
+    });
     if (result.affectedRows === 0) {
       res.sendStatus(404);
     } else {
@@ -45,9 +48,9 @@ const edit = async (req, res, next) => {
 
 // A
 const add = async (req, res, next) => {
-  const favorites = req.body;
+  const userRoles = req.body;
   try {
-    const insertId = await tables.favorites.create(favorites);
+    const insertId = await tables.user_roles.createUserRoles(userRoles);
     res.status(201).json({ insertId });
   } catch (err) {
     next(err);
@@ -57,8 +60,8 @@ const add = async (req, res, next) => {
 // D
 const destroy = async (req, res, next) => {
   try {
-    const [favorites] = await tables.favorites.delete(req.params.id);
-    if (favorites.affectedRows === 0) {
+    const [userRoles] = await tables.user_roles.deleteUserRoles(req.params.id);
+    if (userRoles.affectedRows === 0) {
       res.sendStatus(404);
     } else {
       res.sendStatus(204);

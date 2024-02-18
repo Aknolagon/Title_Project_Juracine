@@ -14,13 +14,6 @@ class ProfilesManager extends AbstractManager {
     return result.insertId;
   }
 
-  // async createForReservation({ username }) {
-  //   await this.database.query(
-  //     `INSERT INTO ${this.table} ( username ) VALUES (?)`,
-  //     [username]
-  //   );
-  // }
-
   // R
   async read(userId) {
     const [rows] = await this.database.query(

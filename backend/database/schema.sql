@@ -27,7 +27,7 @@ CREATE TABLE profiles (
 
 CREATE TABLE roles (
     id int auto_increment PRIMARY KEY,
-    role_name enum('Member', 'Moderateur', 'Admin') not null
+    role_name enum('Member', 'Admin') not null
 );
 
 CREATE TABLE user_roles (

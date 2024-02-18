@@ -13,7 +13,7 @@ const browse = async (req, res, next) => {
 // R
 const read = async (req, res, next) => {
   try {
-    const role = await tables.roles.read(req.params.profile_id);
+    const role = await tables.roles.read(req.params.id);
     if (role == null) {
       res.sendStatus(404);
     } else {

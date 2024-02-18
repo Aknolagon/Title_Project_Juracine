@@ -22,7 +22,7 @@ class UsersManager extends AbstractManager {
   // R
   async read(userId) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
+      `SELECT id, email FROM ${this.table} WHERE id = ?`,
       [userId]
     );
     return rows[0];
@@ -42,10 +42,10 @@ class UsersManager extends AbstractManager {
   }
 
   // U
-  async update({ email, hashedPassword, lastConnexion = new Date(), id }) {
+  async update({ email, password, lastConnexion = new Date(), id }) {
     const [rows] = await this.database.query(
       `UPDATE ${this.table} SET email=?, hashed_password=?, last_connexion=? WHERE id=?`,
-      [email, hashedPassword, lastConnexion, id]
+      [email, password, lastConnexion, id]
     );
     return [rows];
   }
