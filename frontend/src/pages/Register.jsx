@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/Login.scss";
 import Logo from "../assets/LOGO.png";
 
@@ -12,10 +12,11 @@ function Register() {
   const userRef = useRef();
   const errRef = useRef();
   const mailRef = useRef();
+  const pwdRef = useRef();
 
-  const [user, setUser] = useState("");
+  const [name, setName] = useState("");
   const [validName, setValidName] = useState(false);
-  const [userFocus, setUserFocus] = useState(false);
+  const [nameFocus, setNameFocus] = useState(false);
 
   const [mail, setMail] = useState("");
   const [validMail, setValidMail] = useState(false);
@@ -32,13 +33,9 @@ function Register() {
   }, []);
 
   useEffect(() => {
-    const result = USER_REGEX.test(user);
+    const result = USER_REGEX.test(name);
     setValidName(result);
-  }, [user]);
-
-  useEffect(() => {
-    mailRef.current.focus();
-  }, []);
+  }, [name]);
 
   useEffect(() => {
     const result = MAIL_REGEX.test(mail);
@@ -52,7 +49,7 @@ function Register() {
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, mail, pwd]);
+  }, [name, mail, pwd]);
 
   const updateButton = () => {
     const button = document.getElementById("button");
@@ -64,13 +61,57 @@ function Register() {
     updateButton();
   }, [validPwd]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users`,
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: mailRef.current.value.toString(),
+            password: pwdRef.current.value,
+          }),
+        }
+      );
+
+      if (response.status === 201) {
+        const userData = await response.json();
+
+        const profileResponse = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/profiles`,
+          {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: userData.insertId,
+              username: userRef.current.value.toString(),
+            }),
+          }
+        );
+
+        if (profileResponse.status === 201) {
+          navigate("/login");
+        } else {
+          console.info(profileResponse);
+        }
+      } else {
+        console.info(response);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
-    <div className="page-container">
-      <div className="login">
+    <div className="login">
+      <div className="page-container">
         <img className="logo" src={Logo} alt="logo" />
         <section>
           <p
@@ -81,11 +122,11 @@ function Register() {
             {errMsg}
           </p>
           <h1>Register</h1>
-          <form>
-            <label htmlFor="username">
+          <form id="form_subscribe" onSubmit={handleSubmit}>
+            <label id="form-sub-username" htmlFor="username">
               Username :
               <span className={validName ? "valid" : "hide"}>Good</span>
-              <span className={validName || !user ? "hide" : "invalid"}>
+              <span className={validName || !name ? "hide" : "invalid"}>
                 Not good
               </span>
             </label>
@@ -94,18 +135,16 @@ function Register() {
               id="username"
               ref={userRef}
               autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               required
-              aria-invalid={validPwd ? "false" : "true"}
+              aria-invalid={validName ? "false" : "true"}
               aria-describedby="uidnote"
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
+              onFocus={() => setNameFocus(true)}
+              onBlur={() => setNameFocus(false)}
             />
             <p
               id="uidnote"
-              className={
-                userFocus && user && !validName ? "instructions" : "offscreen"
-              }
+              className={nameFocus && !validName ? "instructions" : "offscreen"}
             >
               4 to 24 characters.
               <br />
@@ -113,17 +152,16 @@ function Register() {
               <br />
               Letters, numbers, underscores, hyphens allowed.
             </p>
-
             <label id="form-sub-email" htmlFor="email-reg">
               Email :<span className={validMail ? "valid" : "hide"}>Good</span>
               <span className={validMail || !mail ? "hide" : "invalid"}>
                 Not good
               </span>
               <input
-                type="text"
+                type="mail"
                 id="email-reg"
                 ref={mailRef}
-                autoComplete="off"
+                autoComplete="on"
                 onChange={(e) => setMail(e.target.value)}
                 required
                 aria-invalid={validMail ? "false" : "true"}
@@ -147,12 +185,13 @@ function Register() {
             <label htmlFor="password-reg">
               Password:
               <span className={validPwd ? "valid" : "hide"}>Good</span>
-              <span className={validPwd || !user ? "hide" : "invalid"}>
+              <span className={validPwd || !pwd ? "hide" : "invalid"}>
                 Not good
               </span>
               <input
                 type="password"
                 id="password-reg"
+                ref={pwdRef}
                 onChange={(e) => setPwd(e.target.value)}
                 required
                 aria-invalid={validPwd ? "false" : "true"}
@@ -166,19 +205,14 @@ function Register() {
                 8 to 24 characters.
                 <br />
                 Must include uppercase and lowercase letters, a number and a
-                special dinosaur.
+                special character.
                 <br />
-                Use a special character like [@!%_*?&-]
+                Use a special character from [@!%_*?&-]
               </p>
             </label>
 
-            <button
-              onClick={handleSubmit}
-              id="button"
-              type="submit"
-              className="button"
-            >
-              <Link to="/home">Register</Link>
+            <button id="button" type="submit" className="button">
+              Register
             </button>
             <span>
               Do you have already an account ? Click{" "}

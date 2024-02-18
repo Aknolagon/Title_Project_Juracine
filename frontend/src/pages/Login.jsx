@@ -21,15 +21,44 @@ function Login() {
     updateButton();
   }, [validPwd]);
 
-  // Hook pour la navigation
-  // const navigate = useNavigate();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            profile: "Parent",
+          }),
+        }
+      );
+
+      if (response.status === 200) {
+        const auth = await response.json();
+        localStorage.setItem("parentToken", auth.token);
+        localStorage.setItem("parentId", auth.parentId);
+        localStorage.setItem("user", JSON.stringify(auth.user));
+        localStorage.setItem("parent", JSON.stringify(auth.parent));
+
+        window.location.href = "/parents/rules";
+      } else {
+        console.info(response);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="page-container">
       <div className="login">
         <img className="logo" src={Logo} alt="logo" />
         <section>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <label id="form-co-mail" htmlFor="email-co">
                 {" "}
@@ -64,7 +93,7 @@ function Login() {
               type="submit"
               disabled={!validPwd}
             >
-              <Link to="/home">Connexion</Link>
+              Connexion
             </button>
             <span>
               Don't have any account ? Click <Link to="/register">Here</Link>

@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Loupe from "../assets/Loupe6.png";
 import "../styles/SearchBar.scss";
@@ -12,12 +12,11 @@ function SearchBar() {
 
   useEffect(() => {
     if (inputSearch) {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/search/multi?query=${inputSearch}&include_adult=false&api_key=${
-            import.meta.env.VITE_API_KEY
-          }`
-        )
+      fetch(
+        `https://api.themoviedb.org/3/search/multi?query=${inputSearch}&include_adult=false&api_key=${
+          import.meta.env.VITE_API_KEY
+        }`
+      )
         .then((res) => res.json())
         .then((data) => {
           setMediaList(data.results);
