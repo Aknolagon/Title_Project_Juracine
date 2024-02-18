@@ -29,9 +29,7 @@ const edit = async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = req.body;
-    console.info("Before edit:", user);
     const [result] = await tables.users.update({ id, ...user });
-    console.info("After edit:", result);
 
     if (result.affectedRows === 0) {
       res.sendStatus(404);

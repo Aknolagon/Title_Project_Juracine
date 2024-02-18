@@ -1,11 +1,10 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS profiles;
-DROP TABLE IF EXISTS favorites;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS user_roles;
 
 CREATE TABLE users (
-  user_id int auto_increment PRIMARY KEY,
+  id int auto_increment PRIMARY KEY,
   email varchar(100) not null,
   hashed_password text not null,
   created_date datetime default current_timestamp,
@@ -14,7 +13,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE profiles (
-  profile_id int auto_increment PRIMARY KEY,
+  id int auto_increment PRIMARY KEY,
   user_id int unique,
   username varchar(100) not null,
   first_name varchar(100),
@@ -23,17 +22,17 @@ CREATE TABLE profiles (
   city varchar(100),
   phone_number varchar(15),
   constraint unique_username unique (username),
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE roles (
-    role_id int auto_increment PRIMARY KEY,
+    id int auto_increment PRIMARY KEY,
     role_name enum('Member', 'Moderateur', 'Admin') not null
 );
 
 CREATE TABLE user_roles (
     user_id int,
     role_id int,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (role_id) REFERENCES roles(role_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
 );

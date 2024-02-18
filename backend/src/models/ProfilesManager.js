@@ -6,26 +6,18 @@ class ProfilesManager extends AbstractManager {
   }
 
   // C
-  async create({
-    userId,
-    userName,
-    firstName,
-    lastName,
-    address,
-    city,
-    phoneNumber,
-  }) {
+  async create({ userId, username }) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (user_id, username, first_name, last_name, address, city, phone_number) VALUES (?,?,?,?,?,?,?)`,
-      [userId, userName, firstName, lastName, address, city, phoneNumber]
+      `INSERT INTO ${this.table} (user_id, username) VALUES (?,?)`,
+      [userId, username]
     );
     return result.insertId;
   }
 
-  // async createForReservation({ firstName, lastName }) {
+  // async createForReservation({ username }) {
   //   await this.database.query(
-  //     `INSERT INTO ${this.table} ( first_name, last_name ) VALUES (?,?)`,
-  //     [firstName, lastName]
+  //     `INSERT INTO ${this.table} ( username ) VALUES (?)`,
+  //     [username]
   //   );
   // }
 
@@ -45,26 +37,26 @@ class ProfilesManager extends AbstractManager {
 
   // U
   async update({
-    userName,
+    username,
     firstName,
     lastName,
     address,
     city,
     phoneNumber,
-    profileId,
+    id,
   }) {
     const [rows] = await this.database.query(
       `UPDATE ${this.table} SET username=?, first_name=?, last_name=?, address=?, city=?, phone_number=? WHERE id=?`,
-      [userName, firstName, lastName, address, city, phoneNumber, profileId]
+      [username, firstName, lastName, address, city, phoneNumber, id]
     );
     return [rows];
   }
 
   // D
-  async delete(profileId) {
+  async delete(id) {
     const [rows] = await this.database.query(
       `DELETE FROM ${this.table} WHERE id = ?`,
-      [profileId]
+      [id]
     );
     return [rows];
   }

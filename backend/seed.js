@@ -22,9 +22,7 @@ const seed = async () => {
 
     await database.query("delete from roles");
     queries.push(
-      database.query(
-        "insert into roles (role_id, role_name) values ('3','Admin')"
-      )
+      database.query("insert into roles (id, role_name) values ('3','Admin')")
     );
 
     await database.query("delete from user_roles");

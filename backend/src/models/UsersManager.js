@@ -22,7 +22,7 @@ class UsersManager extends AbstractManager {
   // R
   async read(userId) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE user_id = ?`,
+      `SELECT * FROM ${this.table} WHERE id = ?`,
       [userId]
     );
     return rows[0];
@@ -42,10 +42,10 @@ class UsersManager extends AbstractManager {
   }
 
   // U
-  async update({ email, hashedPassword, lastConnexion, userId }) {
+  async update({ email, hashedPassword, lastConnexion = new Date(), id }) {
     const [rows] = await this.database.query(
-      `UPDATE ${this.table} SET email=?, hashed_password=?, last_connexion=? WHERE user_id=?`,
-      [email, hashedPassword, lastConnexion, userId]
+      `UPDATE ${this.table} SET email=?, hashed_password=?, last_connexion=? WHERE id=?`,
+      [email, hashedPassword, lastConnexion, id]
     );
     return [rows];
   }
@@ -53,7 +53,7 @@ class UsersManager extends AbstractManager {
   // D
   async delete(userId) {
     const [rows] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE user_id = ?`,
+      `DELETE FROM ${this.table} WHERE id = ?`,
       [userId]
     );
     return [rows];
