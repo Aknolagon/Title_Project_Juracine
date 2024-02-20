@@ -8,7 +8,7 @@ const usersControllers = require("./controllers/usersControllers");
 const profilesControllers = require("./controllers/profilesControllers");
 const rolesControllers = require("./controllers/rolesControllers");
 const userrolesControllers = require("./controllers/userrolesControllers");
-// const authControllers = require("./controllers/authControllers");
+const authControllers = require("./controllers/authControllers");
 
 // profiles
 router.get("/profiles", profilesControllers.browse);
@@ -29,13 +29,13 @@ router.get("/users", usersControllers.browse);
 router.get("/users/:id", usersControllers.read);
 router.put("/users/:id", usersControllers.edit);
 router.post("/users", hashPassword, usersControllers.add);
-// router.post("/users/login", authControllers.login);
+router.post("/users/login", authControllers.login);
 router.delete("/users/:id", usersControllers.destroy);
 
 // userRoles
 router.get("/userroles", userrolesControllers.browse);
 router.get("/userroles/:id", userrolesControllers.read);
-router.put("/userroles/:id", userrolesControllers.edit);
+router.put("/userroles/", userrolesControllers.edit);
 router.post("/userroles", userrolesControllers.add);
 router.delete("/userroles/:id", userrolesControllers.destroy);
 

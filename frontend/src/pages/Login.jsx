@@ -5,7 +5,7 @@ import Logo from "../assets/LOGO.png";
 
 function Login() {
   const emailRef = useRef();
-  const passwordRef = useRef();
+  const pwdRef = useRef();
 
   const [validPwd, setValidPwd] = useState(false);
 
@@ -31,20 +31,17 @@ function Login() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email: emailRef.current.value,
-            password: passwordRef.current.value,
-            profile: "Parent",
+            password: pwdRef.current.value,
           }),
         }
       );
 
       if (response.status === 200) {
         const auth = await response.json();
-        localStorage.setItem("parentToken", auth.token);
-        localStorage.setItem("parentId", auth.parentId);
+        localStorage.setItem("userToken", auth.token);
         localStorage.setItem("user", JSON.stringify(auth.user));
-        localStorage.setItem("parent", JSON.stringify(auth.parent));
 
-        window.location.href = "/parents/rules";
+        window.location.href = `/home/${auth.user.id}`;
       } else {
         console.info(response);
       }
@@ -81,7 +78,7 @@ function Login() {
                   id="password-co"
                   autoComplete="on"
                   placeholder="Password"
-                  ref={passwordRef}
+                  ref={pwdRef}
                   onChange={(e) => setValidPwd(e.target.value)}
                 />
               </label>

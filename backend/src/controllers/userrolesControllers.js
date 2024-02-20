@@ -27,11 +27,11 @@ const read = async (req, res, next) => {
 // E
 const edit = async (req, res, next) => {
   try {
-    const userRole = req.body;
-    const { id } = req.params;
+    const { newRoleId, roleId, userId } = req.body;
     const [result] = await tables.user_roles.updateUserRoles({
-      ...userRole,
-      id,
+      newRoleId,
+      roleId,
+      userId,
     });
     if (result.affectedRows === 0) {
       res.sendStatus(404);

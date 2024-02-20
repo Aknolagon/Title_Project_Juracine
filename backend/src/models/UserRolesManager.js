@@ -30,10 +30,10 @@ class UserRolesManager extends AbstractManager {
   }
 
   // U
-  async updateUserRoles({ roleId, userId }) {
+  async updateUserRoles({ newRoleId, roleId, userId }) {
     const [rows] = await this.database.query(
-      `UPDATE ${this.table} SET role_id=? WHERE user_id=?`,
-      [roleId, userId]
+      `UPDATE ${this.table} SET role_id=? WHERE user_id=? AND role_id=?`,
+      [newRoleId, userId, roleId]
     );
     return [rows];
   }

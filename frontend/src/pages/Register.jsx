@@ -99,12 +99,15 @@ function Register() {
         if (profileResponse.status === 201) {
           navigate("/login");
         } else {
-          console.info(profileResponse);
+          const profileData = await profileResponse.json();
+          setErrMsg(`Profile creation failed: ${profileData.message}`);
         }
       } else {
-        console.info(response);
+        const responseData = await response.json();
+        setErrMsg(`User creation failed: ${responseData.message}`);
       }
     } catch (err) {
+      setErrMsg("Error during registration. Please try again later.");
       console.error(err);
     }
   };

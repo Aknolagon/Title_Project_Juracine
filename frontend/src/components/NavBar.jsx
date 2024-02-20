@@ -42,6 +42,11 @@ function NavBar() {
               Profile
             </Link>
           </li>
+          <li className="navbar_item slideInDown-4">
+            <Link className="navbar_link" to="/dashboard">
+              Admin
+            </Link>
+          </li>
         </ul>
         <button
           className="navbar_burger"

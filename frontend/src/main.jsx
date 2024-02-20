@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import Series from "./pages/Series";
 import Welcome from "./pages/Welcome";
+import DashboardAdmin from "./pages/DashboardAdmin";
 
 const router = createBrowserRouter([
   {
@@ -49,12 +50,16 @@ const router = createBrowserRouter([
         element: <Favorites />,
       },
       {
-        path: "/profil",
+        path: "/profile",
         element: <Profile />,
       },
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/dashboard",
+        element: <DashboardAdmin />,
       },
     ],
   },
