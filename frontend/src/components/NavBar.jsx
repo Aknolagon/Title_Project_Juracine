@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import "../styles/NavBar.scss";
 import React, { useState } from "react";
 import Logo from "../assets/LOGO.png";
+// import { AuthContext } from "../contexts/AuthContext";
 
 function NavBar() {
   const [showLinks, setShowLinks] = useState(false);
+  // const { handleLogOut } = useContext(AuthContext);
 
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
@@ -38,14 +40,20 @@ function NavBar() {
             </Link>
           </li>
           <li className="navbar_item slideInDown-4">
-            <Link className="navbar_link" to="/profil">
-              Profile
+            <Link className="navbar_link" to="/profile">
+              <span className="navbar_link">Welcome!</span>
             </Link>
           </li>
           <li className="navbar_item slideInDown-4">
             <Link className="navbar_link" to="/dashboard">
               Admin
             </Link>
+          </li>
+
+          <li className="navbar_item slideInDown-4">
+            <button type="button" className="navbar_link">
+              Log Out
+            </button>
           </li>
         </ul>
         <button

@@ -82,8 +82,8 @@ function Register() {
       if (response.status === 201) {
         const userData = await response.json();
 
-        const profileResponse = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/profiles`,
+        const roleResponse = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/userroles`,
           {
             method: "post",
             headers: {
@@ -91,16 +91,35 @@ function Register() {
             },
             body: JSON.stringify({
               userId: userData.insertId,
-              username: userRef.current.value.toString(),
+              roleId: "1",
             }),
           }
         );
 
-        if (profileResponse.status === 201) {
-          navigate("/login");
+        if (roleResponse.status === 201) {
+          const profileResponse = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/profiles`,
+            {
+              method: "post",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId: userData.insertId,
+                username: userRef.current.value.toString(),
+              }),
+            }
+          );
+
+          if (profileResponse.status === 201) {
+            navigate("/login");
+          } else {
+            const profileData = await profileResponse.json();
+            setErrMsg(`Profile creation failed: ${profileData.message}`);
+          }
         } else {
-          const profileData = await profileResponse.json();
-          setErrMsg(`Profile creation failed: ${profileData.message}`);
+          const roleData = await roleResponse.json();
+          setErrMsg(`Role assignment failed: ${roleData.message}`);
         }
       } else {
         const responseData = await response.json();

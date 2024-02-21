@@ -1,3 +1,4 @@
+const argon2 = require("argon2");
 const AbstractManager = require("./AbstractManager");
 
 class UsersManager extends AbstractManager {
@@ -43,9 +44,10 @@ class UsersManager extends AbstractManager {
 
   // U
   async update({ email, password, lastConnexion = new Date(), id }) {
+    const hashedPassword = await argon2.hash(password);
     const [rows] = await this.database.query(
       `UPDATE ${this.table} SET email=?, hashed_password=?, last_connexion=? WHERE id=?`,
-      [email, password, lastConnexion, id]
+      [email, hashedPassword, lastConnexion, id]
     );
     return [rows];
   }

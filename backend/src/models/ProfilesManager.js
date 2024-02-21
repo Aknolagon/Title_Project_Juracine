@@ -39,7 +39,7 @@ class ProfilesManager extends AbstractManager {
     id,
   }) {
     const [rows] = await this.database.query(
-      `UPDATE ${this.table} SET username=?, first_name=?, last_name=?, address=?, city=?, phone_number=? WHERE id=?`,
+      `UPDATE ${this.table} SET username=?, first_name=?, last_name=?, address=?, city=?, phone_number=? WHERE user_id=?`,
       [username, firstName, lastName, address, city, phoneNumber, id]
     );
     return [rows];

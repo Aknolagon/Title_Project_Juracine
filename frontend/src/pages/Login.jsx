@@ -41,7 +41,7 @@ function Login() {
         localStorage.setItem("userToken", auth.token);
         localStorage.setItem("user", JSON.stringify(auth.user));
 
-        window.location.href = `/home/${auth.user.id}`;
+        window.location.href = `/profile/${auth.user.id}`;
       } else {
         console.info(response);
       }

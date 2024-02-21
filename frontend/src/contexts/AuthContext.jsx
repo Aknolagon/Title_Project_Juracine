@@ -5,7 +5,7 @@ import React, { createContext, useEffect, useMemo, useState } from "react";
 
 const AuthContext = createContext();
 
-function AuthProvider({ children }) {
+function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -15,10 +15,10 @@ function AuthProvider({ children }) {
       if (jwtToken) {
         try {
           const decodeToken = jwtDecode(jwtToken);
-          const res = await axios.get(
+          const response = await axios.get(
             `${import.meta.env.VITE_BACKEND_URL}/api/users/${decodeToken.user}`
           );
-          setUser(res.data);
+          setUser(response.data);
         } catch (error) {
           console.error("Error fetching user data:", error);
         }
@@ -33,23 +33,24 @@ function AuthProvider({ children }) {
     setUser(null);
   };
 
-  const authUseMemo = useMemo(() => {
-    return {
+  const authUseMemo = useMemo(
+    () => ({
       user,
       handleLogOut,
       setUser: (newUser) => {
         setUser(newUser);
       },
-    };
-  }, [user, handleLogOut]);
+    }),
+    [user, handleLogOut, setUser]
+  );
 
   return (
     <AuthContext.Provider value={authUseMemo}>{children}</AuthContext.Provider>
   );
 }
 
-AuthProvider.propTypes = {
+AuthContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export { AuthContext, AuthProvider };
+export { AuthContext, AuthContextProvider };
