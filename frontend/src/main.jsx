@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 
 import App from "./App";
 import About from "./pages/About";
@@ -11,8 +15,24 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Movies from "./pages/Movies";
 import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 import Series from "./pages/Series";
 import Welcome from "./pages/Welcome";
+import DashboardAdmin from "./pages/DashboardAdmin";
+// import { AuthContextProvider } from "./contexts/AuthContext";
+
+const isAuthentificated = () => {
+  const userToken = localStorage.getItem("userToken");
+  return !!userToken;
+};
+
+const isAdmin = () => {
+  return true;
+};
+
+const AdminRoute = () => {
+  return isAuthentificated() && isAdmin();
+};
 
 const router = createBrowserRouter([
   {
@@ -25,7 +45,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <Home />,
+        element: isAuthentificated() ? <Home /> : <Navigate to="/" />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
       {
         path: "/login",
@@ -33,23 +57,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/movies",
-        element: <Movies />,
+        element: isAuthentificated() ? <Movies /> : <Navigate to="/" />,
       },
       {
         path: "/series",
-        element: <Series />,
+        element: isAuthentificated() ? <Series /> : <Navigate to="/" />,
       },
       {
         path: "/favorites",
-        element: <Favorites />,
+        element: isAuthentificated() ? <Favorites /> : <Navigate to="/" />,
       },
       {
-        path: "/profil",
-        element: <Profile />,
+        path: "/profile/:id",
+        element: isAuthentificated() ? <Profile /> : <Navigate to="/" />,
       },
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/dashboard",
+        element: AdminRoute() ? <DashboardAdmin /> : <Navigate to="/" />,
       },
     ],
   },

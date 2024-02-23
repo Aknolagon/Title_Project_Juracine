@@ -48,6 +48,7 @@ function CategorySeries() {
       <select
         className="slider-button"
         onChange={(e) => setCategoryButton(e.target.value)}
+        id="category-series"
       >
         {genres.map((genre) => (
           <option key={genre.name} value={genre.id}>

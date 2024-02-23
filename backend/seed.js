@@ -1,49 +1,65 @@
-/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
-
-// Load environment variables from .env file
 require("dotenv").config();
 
-// Import Faker library for generating fake data
-const { faker } = require("@faker-js/faker");
-
-// Import database client
 const database = require("./database/client");
 
 const seed = async () => {
   try {
-    // Declare an array to store the query promises
-    // See why here: https://eslint.org/docs/latest/rules/no-await-in-loop
     const queries = [];
 
-    /* ************************************************************************* */
+    await database.query("delete from users");
+    queries.push(
+      database.query(
+        "insert into users (email, hashed_password, created_date, last_connexion) values ('kalki@gmail.com', 'yoyo', '2024-01-01 00:00:00', '2024-01-01 00:00:00')"
+      )
+    );
+    queries.push(
+      database.query(
+        "insert into users (email, hashed_password, created_date, last_connexion) values ('naruto@gmail.com', 'popo', '2024-01-01 00:00:00', '2024-01-01 00:00:00')"
+      )
+    );
 
-    // Generating Seed Data
+    await database.query("delete from profiles");
+    queries.push(
+      database.query(
+        "insert into profiles (user_id, username, first_name, last_name, address, city, phone_number) values ('1', 'Muchacho', 'lorem', 'ipsum', '33 Wild Code Place 13000', 'Marseille', '05.56.56.56.56')"
+      )
+    );
+    queries.push(
+      database.query(
+        "insert into profiles (user_id, username, first_name, last_name, address, city, phone_number) values ('2', 'Uzumaki', 'lolo', 'ipsum', '33 Wild Code Place 13000', 'Marseille', '05.56.56.56.56')"
+      )
+    );
 
-    // Optional: Truncate tables (remove existing data)
-    await database.query("truncate item");
+    await database.query("delete from roles");
+    queries.push(
+      database.query(
+        "insert into roles (role_name) values ('Member'), ('Admin'), ('Fan')"
+      )
+    );
 
-    // Insert fake data into the 'item' table
-    for (let i = 0; i < 10; i += 1) {
-      queries.push(
-        database.query("insert into item(title) values (?)", [
-          faker.lorem.word(),
-        ])
-      );
-    }
+    await database.query("delete from user_roles");
+    queries.push(
+      database.query(
+        "insert into user_roles (user_id, role_id) values ('1', '2')"
+      )
+    );
+    queries.push(
+      database.query(
+        "insert into user_roles (user_id, role_id) values ('1', '1')"
+      )
+    );
+    queries.push(
+      database.query(
+        "insert into user_roles (user_id, role_id) values ('2', '1')"
+      )
+    );
 
-    /* ************************************************************************* */
-
-    // Wait for all the insertion queries to complete
     await Promise.all(queries);
-
-    // Close the database connection
     database.end();
-
     console.info(`${database.databaseName} filled from ${__filename} 🌱`);
   } catch (err) {
     console.error("Error filling the database:", err.message);
   }
 };
 
-// Run the seed function
 seed();

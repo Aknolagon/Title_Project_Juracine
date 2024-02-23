@@ -2,18 +2,18 @@
 const { app, request, tables } = require("../setup");
 
 // Test suite for the GET /api/items route
-describe("GET /api/items", () => {
-  it("should fetch items successfully", async () => {
+describe("GET /api/users", () => {
+  it("should fetch users successfully", async () => {
     // Define a sample item for testing
     const testItem = {
-      title: "Sample Item",
+      email: "Sample Item",
     };
 
     // Create a sample item in the database
-    const insertId = await tables.item.create(testItem);
+    const insertId = await tables.users.create(testItem);
 
-    // Send a GET request to the /api/items endpoint
-    const response = await request(app).get("/api/items");
+    // Send a GET request to the /api/users endpoint
+    const response = await request(app).get("/api/users");
 
     // Assertions
     expect(response.status).toBe(200);
@@ -29,18 +29,18 @@ describe("GET /api/items", () => {
 });
 
 // Test suite for the GET /api/items/:id route
-describe("GET /api/items/:id", () => {
+describe("GET /api/users/:id", () => {
   it("should fetch a single item successfully", async () => {
     // Define a sample item for testing
     const testItem = {
-      title: "Sample Item",
+      email: "Sample Item",
     };
 
     // Create a sample item in the database
     const insertId = await tables.item.create(testItem);
 
-    // Send a GET request to the /api/items/:id endpoint
-    const response = await request(app).get(`/api/items/${insertId}`);
+    // Send a GET request to the /api/users/:id endpoint
+    const response = await request(app).get(`/api/users/${insertId}`);
 
     // Assertions
     expect(response.status).toBe(200);
@@ -50,8 +50,8 @@ describe("GET /api/items/:id", () => {
   });
 
   it("should return 404 for non-existent item", async () => {
-    // Send a GET request to the /api/items/:id endpoint with an invalid ID
-    const response = await request(app).get("/api/items/0");
+    // Send a GET request to the /api/users/:id endpoint with an invalid ID
+    const response = await request(app).get("/api/users/0");
 
     // Assertions
     expect(response.status).toBe(404);
@@ -62,15 +62,15 @@ describe("GET /api/items/:id", () => {
 // Test suite for the POST /api/items route
 // Doesn't pass: maybe something to change in app config :/
 // Hint: enabling log could help ;)
-describe("POST /api/items", () => {
+describe("POST /api/users", () => {
   it("should add a new item successfully", async () => {
     // Define a sample item for testing
     const testItem = {
-      title: "Sample Item",
+      email: "Sample Item",
     };
 
     // Send a POST request to the /api/items endpoint with a test item
-    const response = await request(app).post("/api/items").send(testItem);
+    const response = await request(app).post("/api/users").send(testItem);
 
     // Assertions
     expect(response.status).toBe(201);
@@ -82,7 +82,7 @@ describe("POST /api/items", () => {
 
     // Assertions
     expect(foundItem).toBeDefined();
-    expect(foundItem.title).toBe(testItem.title);
+    expect(foundItem.email).toBe(testItem.email);
   });
 });
 

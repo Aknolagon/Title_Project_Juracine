@@ -1,94 +1,194 @@
-import React, { useState } from "react";
-import NavBar from "../components/NavBar";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import Footer from "../components/Footer";
+import NavBar from "../components/NavBar";
 import "../styles/Profile.scss";
 
 function Profile() {
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [confirmationUpdate, setConfirmationUpdate] = useState("");
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [address, setAddress] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [city, setCity] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/profiles/${id}`
+        );
+        const result = response.data;
+        setUsername(result.username);
+        setLastName(result.last_name);
+        setFirstName(result.first_name);
+        setAddress(result.address);
+        setCity(result.city);
+        setPhoneNumber(result.phone_number);
+
+        await axios
+          .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`)
+          .then((res) => {
+            setEmail(res.data.email);
+          });
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchProfileData();
+  }, [id]);
+
+  const updateProfile = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/profiles/${id}`,
+        {
+          username,
+          firstName,
+          lastName,
+          address,
+          phoneNumber,
+          city,
+        }
+      );
+
+      axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`, {
+        email,
+        password,
+      });
+
+      setConfirmationUpdate("Profile updated !");
+      navigate(`/profile/${id}`);
+    } catch (error) {
+      console.error(
+        "Error while updating the profile, please try again later.",
+        error
+      );
+    }
+  };
 
   const handleDelete = () => {
-    // Afficher la boîte de dialogue de confirmation
     setShowConfirmation(true);
   };
 
-  // Fonction pour confirmer la suppression du compte
-  const confirmDelete = () => {
-    // Mettez ici la logique pour supprimer réellement le compte
-    console.info("Account deleted !");
-    // Après la suppression, vous pouvez rediriger l'utilisateur vers une autre page ou effectuer d'autres actions nécessaires
+  const confirmDelete = async () => {
+    try {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`);
+      console.info("Account successfully deleted");
+      localStorage.removeItem("userToken");
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
   };
 
-  // Fonction pour annuler la suppression du compte
   const cancelDelete = () => {
-    // Masquer la boîte de dialogue de confirmation
     setShowConfirmation(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
   return (
     <div className="profile">
       <NavBar />
       <h1>Update your profile ?</h1>
-      <form className="form">
+      <form className="form" onSubmit={updateProfile}>
         <input
           type="text"
           name="username"
-          autoComplete="username"
           placeholder="Username"
-          // onChange={(e) => setLastNameParent(e.target.value)}
+          autoComplete="on"
+          value={username || ""}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <input
           type="text"
           name="firstname"
-          autoComplete="firstname"
+          autoComplete="on"
           placeholder="Firstname"
-          // value={firstNameParent}
-          // onChange={(e) => setFirstNameParent(e.target.value)}
+          value={firstName || ""}
+          onChange={(e) => setFirstName(e.target.value)}
         />
         <input
           type="text"
           name="lastname"
-          autoComplete="lastname"
+          autoComplete="on"
           placeholder="Lastname"
-          // value={firstNameBaby}
-          // onChange={(e) => setFirstNameBaby(e.target.value)}
-        />
-        <input
-          type="mail"
-          name="email"
-          autoComplete="email"
-          placeholder="Mail"
-          disabled
-          // value={email}
-          // onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          name="password"
-          autoComplete="password"
-          placeholder="Password"
-          // value={firstNameBaby}
-          // onChange={(e) => setFirstNameBaby(e.target.value)}
-        />
-        <input
-          type="number"
-          name="phoneNumber"
-          autoComplete="number"
-          placeholder="Phone Number"
-          // value={phoneNumber}
-          // onChange={(e) => setPhoneNumber(e.target.value)}
+          value={lastName || ""}
+          onChange={(e) => setLastName(e.target.value)}
         />
         <input
           type="text"
           name="address"
           placeholder="Full Adress"
-          className="input-adress"
-          // value={address}
-          // onChange={(e) => setAddress(e.target.value)}
+          autoComplete="on"
+          value={address || ""}
+          onChange={(e) => setAddress(e.target.value)}
         />
-      </form>
-      <div className="btn-details">
+        <input
+          type="text"
+          name="phone_number"
+          autoComplete="on"
+          placeholder="Phone Number"
+          value={phoneNumber || ""}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
+        <input
+          type="text"
+          name="city"
+          autoComplete="on"
+          placeholder="City"
+          value={city || ""}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        <input
+          type="mail"
+          name="email"
+          autoComplete="off"
+          placeholder="email"
+          value={email || ""}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          name="password"
+          autoComplete="off"
+          placeholder="New Password"
+          value={password || ""}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <button className="btn-update" type="submit">
-          Update your profile
+          Update
+        </button>
+      </form>
+      {confirmationUpdate && (
+        <div className="btn-details">
+          <p>{confirmationUpdate}</p>
+        </div>
+      )}
+      <div className="btn-details">
+        <button
+          type="button"
+          className="btn-logout"
+          onClick={handleLogout}
+          aria-hidden
+        >
+          <span>Log out</span>
         </button>
         <button className="btn-delete" type="submit" onClick={handleDelete}>
           Delete your account*

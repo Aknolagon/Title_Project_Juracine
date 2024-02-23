@@ -2,22 +2,46 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
+const { hashPassword } = require("./middlewares/auth");
+// const { isAdmin } = require("./middlewares/isAdmin");
 
-// Import itemControllers module for handling item-related operations
-const itemControllers = require("./controllers/itemControllers");
+const usersControllers = require("./controllers/usersControllers");
+const profilesControllers = require("./controllers/profilesControllers");
+const rolesControllers = require("./controllers/rolesControllers");
+const userrolesControllers = require("./controllers/userrolesControllers");
+const authControllers = require("./controllers/authControllers");
+// const dashboardadminControllers = require("./controllers/dashboardadminControllers");
 
-// Route to get a list of items
-router.get("/items", itemControllers.browse);
+// profiles
+router.get("/profiles", profilesControllers.browse);
+router.get("/profiles/:user_id", profilesControllers.read);
+router.put("/profiles/:id", profilesControllers.edit);
+router.post("/profiles", profilesControllers.add);
+router.delete("/profiles/:id", profilesControllers.destroy);
 
-// Route to get a specific item by ID
-router.get("/items/:id", itemControllers.read);
+// roles
+router.get("/roles", rolesControllers.browse);
+router.get("/roles/:id", rolesControllers.read);
+router.put("/roles/:id", rolesControllers.edit);
+router.post("/roles", rolesControllers.add);
+router.delete("/roles/:id", rolesControllers.destroy);
 
-// Route to add a new item
-router.post("/items", itemControllers.add);
+// users
+router.get("/users", usersControllers.browse);
+router.get("/users/:id", usersControllers.read);
+router.put("/users/:id", usersControllers.edit);
+router.post("/users", hashPassword, usersControllers.add);
+router.post("/users/login", authControllers.login);
+router.delete("/users/:id", usersControllers.destroy);
 
-/* ************************************************************************* */
+// userRoles
+router.get("/userroles", userrolesControllers.browse);
+router.get("/userroles/:id", userrolesControllers.read);
+router.put("/userroles/", userrolesControllers.edit);
+router.post("/userroles", userrolesControllers.add);
+router.delete("/userroles", userrolesControllers.destroy);
+
+// admin
+// router.get("/admin/dashboard", isAdmin, dashboardadminControllers.getAdmin);
 
 module.exports = router;
