@@ -31,14 +31,16 @@ class UsersManager extends AbstractManager {
 
   async readByEmailWithPassword(email) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where email = ?`,
+      `SELECT ${this.table}.*, profiles.username FROM ${this.table} LEFT JOIN profiles ON users.id = profiles.user_id WHERE email = ?`,
       [email]
     );
     return rows[0];
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
+    const [rows] = await this.database.query(
+      `SELECT id, email FROM ${this.table}`
+    );
     return rows;
   }
 

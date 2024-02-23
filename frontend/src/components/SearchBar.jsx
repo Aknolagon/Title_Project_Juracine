@@ -55,6 +55,7 @@ function SearchBar() {
       <div className="input-wrapper">
         <div className="search-box">
           <input
+            id="search-input"
             placeholder="Find what you want ..."
             value={inputSearch}
             onChange={(e) => setInputSearch(e.target.value)}

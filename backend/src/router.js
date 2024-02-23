@@ -3,12 +3,14 @@ const express = require("express");
 const router = express.Router();
 
 const { hashPassword } = require("./middlewares/auth");
+// const { isAdmin } = require("./middlewares/isAdmin");
 
 const usersControllers = require("./controllers/usersControllers");
 const profilesControllers = require("./controllers/profilesControllers");
 const rolesControllers = require("./controllers/rolesControllers");
 const userrolesControllers = require("./controllers/userrolesControllers");
 const authControllers = require("./controllers/authControllers");
+// const dashboardadminControllers = require("./controllers/dashboardadminControllers");
 
 // profiles
 router.get("/profiles", profilesControllers.browse);
@@ -37,6 +39,9 @@ router.get("/userroles", userrolesControllers.browse);
 router.get("/userroles/:id", userrolesControllers.read);
 router.put("/userroles/", userrolesControllers.edit);
 router.post("/userroles", userrolesControllers.add);
-router.delete("/userroles/:id", userrolesControllers.destroy);
+router.delete("/userroles", userrolesControllers.destroy);
+
+// admin
+// router.get("/admin/dashboard", isAdmin, dashboardadminControllers.getAdmin);
 
 module.exports = router;

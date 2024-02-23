@@ -60,7 +60,11 @@ const add = async (req, res, next) => {
 // D
 const destroy = async (req, res, next) => {
   try {
-    const [userRoles] = await tables.user_roles.deleteUserRoles(req.params.id);
+    const { roleId, userId } = req.body;
+    const [userRoles] = await tables.user_roles.deleteUserRoles({
+      userId,
+      roleId,
+    });
     if (userRoles.affectedRows === 0) {
       res.sendStatus(404);
     } else {

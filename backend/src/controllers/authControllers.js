@@ -16,13 +16,25 @@ const login = async (req, res, next) => {
     );
     if (verified) {
       delete user.hashed_password;
-      const token = await jwt.sign({ sub: user.id }, process.env.APP_SECRET, {
-        expiresIn: "100s",
-      });
-      res.json({
-        token,
-        user,
-      });
+
+      const isAdmin = await tables.user_roles.readUserRoles(user.id, "Admin");
+
+      if (isAdmin) {
+        const token = await jwt.sign(
+          { sub: user.id, isAdmin: true },
+          process.env.APP_SECRET,
+          {
+            expiresIn: "100s",
+          }
+        );
+        res.json({
+          token,
+          user,
+        });
+      } else {
+        // User doesn't have the "admin" role
+        res.status(403).json({ message: "You are not authorized as admin" });
+      }
     } else {
       res.sendStatus(422);
     }
@@ -31,18 +43,6 @@ const login = async (req, res, next) => {
   }
 };
 
-const logout = async (req, res, next) => {
-  try {
-    localStorage.removeItem("user");
-    res.status(200).json({ message: "Logout successfully" });
-  } catch (error) {
-    console.error("Erreur lors de la déconnexion :", error);
-    res.status(500).json({ message: "Error with the logout" });
-  }
-  next();
-};
-
 module.exports = {
   login,
-  logout,
 };

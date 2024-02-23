@@ -28,7 +28,10 @@ function Login() {
         `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
         {
           method: "post",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${auth.token}`,
+          },
           body: JSON.stringify({
             email: emailRef.current.value,
             password: pwdRef.current.value,
@@ -39,7 +42,11 @@ function Login() {
       if (response.status === 200) {
         const auth = await response.json();
         localStorage.setItem("userToken", auth.token);
-        localStorage.setItem("user", JSON.stringify(auth.user));
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ id: auth.user.id, username: auth.user.username })
+        );
+        console.info(auth);
 
         window.location.href = `/profile/${auth.user.id}`;
       } else {

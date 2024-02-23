@@ -97,6 +97,12 @@ function Profile() {
     setShowConfirmation(false);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
   return (
     <div className="profile">
       <NavBar />
@@ -107,7 +113,7 @@ function Profile() {
           name="username"
           placeholder="Username"
           autoComplete="on"
-          value={username}
+          value={username || ""}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
@@ -115,7 +121,7 @@ function Profile() {
           name="firstname"
           autoComplete="on"
           placeholder="Firstname"
-          value={firstName}
+          value={firstName || ""}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <input
@@ -123,7 +129,7 @@ function Profile() {
           name="lastname"
           autoComplete="on"
           placeholder="Lastname"
-          value={lastName}
+          value={lastName || ""}
           onChange={(e) => setLastName(e.target.value)}
         />
         <input
@@ -131,7 +137,7 @@ function Profile() {
           name="address"
           placeholder="Full Adress"
           autoComplete="on"
-          value={address}
+          value={address || ""}
           onChange={(e) => setAddress(e.target.value)}
         />
         <input
@@ -139,7 +145,7 @@ function Profile() {
           name="phone_number"
           autoComplete="on"
           placeholder="Phone Number"
-          value={phoneNumber}
+          value={phoneNumber || ""}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
         <input
@@ -147,7 +153,7 @@ function Profile() {
           name="city"
           autoComplete="on"
           placeholder="City"
-          value={city}
+          value={city || ""}
           onChange={(e) => setCity(e.target.value)}
         />
         <input
@@ -155,7 +161,7 @@ function Profile() {
           name="email"
           autoComplete="off"
           placeholder="email"
-          value={email}
+          value={email || ""}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
@@ -163,7 +169,7 @@ function Profile() {
           name="password"
           autoComplete="off"
           placeholder="New Password"
-          value={password}
+          value={password || ""}
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className="btn-update" type="submit">
@@ -176,6 +182,14 @@ function Profile() {
         </div>
       )}
       <div className="btn-details">
+        <button
+          type="button"
+          className="btn-logout"
+          onClick={handleLogout}
+          aria-hidden
+        >
+          <span>Log out</span>
+        </button>
         <button className="btn-delete" type="submit" onClick={handleDelete}>
           Delete your account*
         </button>

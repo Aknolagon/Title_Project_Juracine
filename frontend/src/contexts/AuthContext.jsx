@@ -1,11 +1,10 @@
 import axios from "axios";
 import jwtDecode from "jwt-decode";
-import PropTypes from "prop-types";
-import React, { createContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
 
 const AuthContext = createContext();
 
-function AuthContextProvider({ children }) {
+function AuthProvider(children) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -28,29 +27,46 @@ function AuthContextProvider({ children }) {
     fetchData();
   }, []);
 
-  const handleLogOut = () => {
-    localStorage.removeItem("token");
+  const login = async (email, password) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/login`,
+        { email, password }
+      );
+
+      if (response.status === 200) {
+        const { token } = response.data;
+
+        // Set JWT token in an HTTPOnly cookie
+        document.cookie = `token=${token}; Secure; HttpOnly; SameSite=Strict`;
+
+        const decodeToken = jwtDecode(token);
+        const userData = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/users/${decodeToken.user}`
+        );
+
+        setUser(userData.data);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  };
+
+  const logout = () => {
+    // Remove the HTTPOnly cookie
+    document.cookie = "token=; Secure; HttpOnly; SameSite=Strict";
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("user");
     setUser(null);
   };
 
-  const authUseMemo = useMemo(
-    () => ({
-      user,
-      handleLogOut,
-      setUser: (newUser) => {
-        setUser(newUser);
-      },
-    }),
-    [user, handleLogOut, setUser]
-  );
-
   return (
-    <AuthContext.Provider value={authUseMemo}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={(user, login, logout)}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 
-AuthContextProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+export default AuthProvider;
 
-export { AuthContext, AuthContextProvider };
+export const useAuth = () => useContext(AuthContext);

@@ -1,12 +1,28 @@
-import { Link } from "react-router-dom";
-import "../styles/NavBar.scss";
-import React, { useState } from "react";
+// import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/LOGO.png";
-// import { AuthContext } from "../contexts/AuthContext";
+import "../styles/NavBar.scss";
 
 function NavBar() {
   const [showLinks, setShowLinks] = useState(false);
-  // const { handleLogOut } = useContext(AuthContext);
+  const [username, setUsername] = useState("");
+  const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUsername(JSON.parse(localStorage.getItem("user")).username);
+      setUserId(JSON.parse(localStorage.getItem("user")).id);
+    }
+  }, []);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
 
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
@@ -40,8 +56,8 @@ function NavBar() {
             </Link>
           </li>
           <li className="navbar_item slideInDown-4">
-            <Link className="navbar_link" to="/profile">
-              <span className="navbar_link">Welcome!</span>
+            <Link className="navbar_link" to={`/profile/${userId}`}>
+              <span className="navbar_link">Welcome, {username}!</span>
             </Link>
           </li>
           <li className="navbar_item slideInDown-4">
@@ -51,8 +67,13 @@ function NavBar() {
           </li>
 
           <li className="navbar_item slideInDown-4">
-            <button type="button" className="navbar_link">
-              Log Out
+            <button
+              type="button"
+              className="btn-logout"
+              onClick={handleLogout}
+              aria-hidden
+            >
+              <span>Log out</span>
             </button>
           </li>
         </ul>

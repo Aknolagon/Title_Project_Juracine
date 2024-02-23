@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 
 import App from "./App";
 import About from "./pages/About";
@@ -15,6 +19,20 @@ import Register from "./pages/Register";
 import Series from "./pages/Series";
 import Welcome from "./pages/Welcome";
 import DashboardAdmin from "./pages/DashboardAdmin";
+// import { AuthContextProvider } from "./contexts/AuthContext";
+
+const isAuthentificated = () => {
+  const userToken = localStorage.getItem("userToken");
+  return !!userToken;
+};
+
+const isAdmin = () => {
+  return true;
+};
+
+const AdminRoute = () => {
+  return isAuthentificated() && isAdmin();
+};
 
 const router = createBrowserRouter([
   {
@@ -27,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <Home />,
+        element: isAuthentificated() ? <Home /> : <Navigate to="/" />,
       },
       {
         path: "/register",
@@ -39,19 +57,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/movies",
-        element: <Movies />,
+        element: isAuthentificated() ? <Movies /> : <Navigate to="/" />,
       },
       {
         path: "/series",
-        element: <Series />,
+        element: isAuthentificated() ? <Series /> : <Navigate to="/" />,
       },
       {
         path: "/favorites",
-        element: <Favorites />,
+        element: isAuthentificated() ? <Favorites /> : <Navigate to="/" />,
       },
       {
         path: "/profile/:id",
-        element: <Profile />,
+        element: isAuthentificated() ? <Profile /> : <Navigate to="/" />,
       },
       {
         path: "/about",
@@ -59,7 +77,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <DashboardAdmin />,
+        element: AdminRoute() ? <DashboardAdmin /> : <Navigate to="/" />,
       },
     ],
   },
