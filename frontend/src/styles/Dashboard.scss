@@ -1,0 +1,50 @@
+.dashboardAdmin {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  .dashboard {
+    .dashboard-category {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      gap: 30rem;
+      background-color: salmon;
+      list-style: none;
+    }
+
+    .dashboard-info {
+      display: flex;
+      justify-content: space-between;
+
+      .dashboard-mail,
+      .dashboard-role,
+      .dashboard-action {
+        background-color: antiquewhite;
+      }
+
+      .dashboard-mail {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10rem;
+        padding: 50px;
+
+        .mail {
+          list-style: none;
+        }
+      }
+
+      .dashboard-role {
+        display: flex;
+        flex-direction: column;
+        margin-right: 12rem;
+        padding: 50px;
+
+        .role {
+          list-style: none;
+        }
+      }
+    }
+  }
+}

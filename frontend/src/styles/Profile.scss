@@ -26,9 +26,25 @@
       color: whitesmoke;
     }
 
-    .input-adress {
+    .input-city {
       grid-column: 2/3;
     }
+
+    .btn-update {
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.3rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      background: antiquewhite;
+      color: black;
+    }
+  }
+
+  p {
+    color: antiquewhite;
+    text-align: center;
   }
 
   .btn-details {
@@ -37,8 +53,8 @@
     margin: auto;
     margin-top: 3rem;
 
-    .btn-update,
-    .btn-delete {
+    .btn-delete,
+    .btn-logout {
       border: none;
       padding: 10px 20px;
       font-size: 1rem;
