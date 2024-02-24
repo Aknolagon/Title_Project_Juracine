@@ -1,12 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
+import { UserContext } from "../contexts/UserContext";
 import "../styles/Dashboard.scss";
 
 function DashboardAdmin() {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
+
+  const { user } = useContext(UserContext);
 
   const fetchUsers = async () => {
     try {
@@ -26,8 +29,12 @@ function DashboardAdmin() {
   };
 
   useEffect(() => {
+    // if (user && user.role !== 2) {
+    //   window.location.href = `/`;
+    // } else if (user && user.role === 2) {
     fetchUsers();
-  }, []);
+    // }
+  }, [user]);
 
   const addNewRole = async (userId) => {
     try {
@@ -81,10 +88,10 @@ function DashboardAdmin() {
         </div>
         <div className="dashboard-info">
           <div className="dashboard-mail">
-            {users.map((user) => (
-              <ul key={user.id}>
-                <li> Id : {user.id}</li>
-                <li className="mail"> {user.email}</li>
+            {users.map((us) => (
+              <ul key={us.id}>
+                <li> Id : {us.id}</li>
+                <li className="mail"> {us.email}</li>
                 {/* <li>
                   <button type="button" onClick={accountDelete(user.id)}>
                     Delete Account

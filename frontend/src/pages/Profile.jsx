@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import "../styles/Profile.scss";
+import { UserContext } from "../contexts/UserContext";
 
 function Profile() {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -21,6 +22,9 @@ function Profile() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const { user } = useContext(UserContext);
+  console.info("user:", user);
+
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
@@ -28,7 +32,7 @@ function Profile() {
           `${import.meta.env.VITE_BACKEND_URL}/api/profiles/${id}`
         );
         const result = response.data;
-        setUsername(result.username);
+        setUsername(result?.username);
         setLastName(result.last_name);
         setFirstName(result.first_name);
         setAddress(result.address);
@@ -102,6 +106,12 @@ function Profile() {
     localStorage.removeItem("user");
     navigate("/");
   };
+
+  // useEffect(() => {
+  //   if (user?.id !== parseInt(id, 10)) {
+  //     navigate("/home");
+  //   }
+  // }, [user, id]);
 
   return (
     <div className="profile">

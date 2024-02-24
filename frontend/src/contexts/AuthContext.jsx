@@ -1,15 +1,19 @@
 import axios from "axios";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import React, { createContext, useEffect, useState, useContext } from "react";
+/* eslint-disable */
 
-const AuthContext = createContext();
 
-function AuthProvider(children) {
+export const AuthContext = createContext();
+
+export const useAuth = () => useContext(AuthContext);
+
+export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const jwtToken = localStorage.getItem("token");
+      const jwtToken = localStorage.getItem("userToken");
 
       if (jwtToken) {
         try {
@@ -37,9 +41,6 @@ function AuthProvider(children) {
       if (response.status === 200) {
         const { token } = response.data;
 
-        // Set JWT token in an HTTPOnly cookie
-        document.cookie = `token=${token}; Secure; HttpOnly; SameSite=Strict`;
-
         const decodeToken = jwtDecode(token);
         const userData = await axios.get(
           `${import.meta.env.VITE_BACKEND_URL}/api/users/${decodeToken.user}`
@@ -52,21 +53,15 @@ function AuthProvider(children) {
     }
   };
 
-  const logout = () => {
-    // Remove the HTTPOnly cookie
-    document.cookie = "token=; Secure; HttpOnly; SameSite=Strict";
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("user");
-    setUser(null);
-  };
+  // const logout = () => {
+  //   localStorage.removeItem("userToken");
+  //   localStorage.removeItem("user");
+  //   setUser(null);
+  // };
 
   return (
-    <AuthContext.Provider value={(user, login, logout)}>
+    <AuthContext.Provider value={user}>
       {children}
     </AuthContext.Provider>
   );
 }
-
-export default AuthProvider;
-
-export const useAuth = () => useContext(AuthContext);

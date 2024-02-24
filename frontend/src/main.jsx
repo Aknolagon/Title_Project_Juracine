@@ -19,24 +19,20 @@ import Register from "./pages/Register";
 import Series from "./pages/Series";
 import Welcome from "./pages/Welcome";
 import DashboardAdmin from "./pages/DashboardAdmin";
-// import { AuthContextProvider } from "./contexts/AuthContext";
+import { UserProvider } from "./contexts/UserContext";
 
 const isAuthentificated = () => {
   const userToken = localStorage.getItem("userToken");
   return !!userToken;
 };
 
-const isAdmin = () => {
-  return true;
-};
-
-const AdminRoute = () => {
-  return isAuthentificated() && isAdmin();
-};
-
 const router = createBrowserRouter([
   {
-    element: <App />,
+    element: (
+      <UserProvider>
+        <App />,
+      </UserProvider>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -77,7 +73,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: AdminRoute() ? <DashboardAdmin /> : <Navigate to="/" />,
+        element: isAuthentificated() ? <DashboardAdmin /> : <Navigate to="/" />,
       },
     ],
   },

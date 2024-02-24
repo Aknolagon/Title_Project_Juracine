@@ -1,26 +1,30 @@
 // import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/LOGO.png";
 import "../styles/NavBar.scss";
+import { UserContext } from "../contexts/UserContext";
 
 function NavBar() {
   const [showLinks, setShowLinks] = useState(false);
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
+  const [userRole, setUserRole] = useState();
+
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      setUsername(JSON.parse(localStorage.getItem("user")).username);
-      setUserId(JSON.parse(localStorage.getItem("user")).id);
+    if (user) {
+      setUsername(user.username);
+      setUserId(user.id);
+      setUserRole(user.role);
     }
-  }, []);
+  }, [user]);
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
-    localStorage.removeItem("user");
     navigate("/");
   };
 
@@ -60,12 +64,13 @@ function NavBar() {
               <span className="navbar_link">Welcome, {username}!</span>
             </Link>
           </li>
-          <li className="navbar_item slideInDown-4">
-            <Link className="navbar_link" to="/dashboard">
-              Admin
-            </Link>
-          </li>
-
+          {userRole === 2 && (
+            <li className="navbar_item slideInDown-4">
+              <Link className="navbar_link" to="/dashboard">
+                Admin
+              </Link>
+            </li>
+          )}
           <li className="navbar_item slideInDown-4">
             <button
               type="button"

@@ -31,7 +31,7 @@ class UsersManager extends AbstractManager {
 
   async readByEmailWithPassword(email) {
     const [rows] = await this.database.query(
-      `SELECT ${this.table}.*, profiles.username FROM ${this.table} LEFT JOIN profiles ON users.id = profiles.user_id WHERE email = ?`,
+      `SELECT ${this.table}.*, profiles.username, user_roles.role_id FROM ${this.table} LEFT JOIN profiles ON users.id = profiles.user_id LEFT JOIN user_roles ON users.id = user_roles.user_id WHERE email = ?`,
       [email]
     );
     return rows[0];

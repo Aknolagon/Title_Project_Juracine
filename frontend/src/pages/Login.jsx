@@ -1,13 +1,16 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Login.scss";
 import Logo from "../assets/LOGO.png";
+import { UserContext } from "../contexts/UserContext";
 
 function Login() {
   const emailRef = useRef();
   const pwdRef = useRef();
 
   const [validPwd, setValidPwd] = useState(false);
+
+  const { updateUser } = useContext(UserContext);
 
   const updateButton = () => {
     const button = document.getElementById("button");
@@ -30,7 +33,6 @@ function Login() {
           method: "post",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${auth.token}`,
           },
           body: JSON.stringify({
             email: emailRef.current.value,
@@ -41,12 +43,18 @@ function Login() {
 
       if (response.status === 200) {
         const auth = await response.json();
+
         localStorage.setItem("userToken", auth.token);
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ id: auth.user.id, username: auth.user.username })
-        );
-        console.info(auth);
+        // localStorage.setItem(
+        //   "user",
+        //   JSON.stringify({ id: auth.user.id, username: auth.user.username })
+        // );
+        updateUser({
+          id: auth.user.id,
+          username: auth.user.username,
+          role: auth.user.role_id,
+        });
+        console.info("auth:", auth);
 
         window.location.href = `/profile/${auth.user.id}`;
       } else {
@@ -56,6 +64,12 @@ function Login() {
       console.error(err);
     }
   };
+
+  // useEffect(() => {
+  //   if (user) {
+  //     console.info("user:", user);
+  //   }
+  // }, [user]);
 
   return (
     <div className="page-container">
@@ -90,7 +104,6 @@ function Login() {
                 />
               </label>
             </div>
-
             <button
               className="button"
               id="button"
