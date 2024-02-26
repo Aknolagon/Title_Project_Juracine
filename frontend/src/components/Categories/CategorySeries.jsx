@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import CarouselSeries from "../CarouselSeries";
+import React, { useEffect, useState } from "react";
 import "../../styles/CategoryStyle.scss";
+import CarouselSeries from "../CarouselSeries";
 
 function CategorySeries() {
   const [genres, setGenres] = useState([]);

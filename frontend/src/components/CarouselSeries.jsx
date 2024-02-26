@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import SerieCard from "./Cards/SerieCard";
+import React, { useState } from "react";
 import "../styles/Carousel.scss";
+import SerieCard from "./Cards/SerieCard";
 
 function CarouselSeries({ series }) {
   const [currentIndex, setCurrentIndex] = useState(0);

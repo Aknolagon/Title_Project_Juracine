@@ -1,28 +1,24 @@
-// import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Logo from "../assets/LOGO.png";
+import { UserContext } from "../contexts/UserContext";
 import "../styles/NavBar.scss";
 
 function NavBar() {
   const [showLinks, setShowLinks] = useState(false);
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
-      setUsername(JSON.parse(localStorage.getItem("user")).username);
-      setUserId(JSON.parse(localStorage.getItem("user")).id);
+    if (user) {
+      setUsername(user.username);
+      setUserId(user.id);
+      setIsAdmin(user.isAdmin);
     }
-  }, []);
-
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("user");
-    navigate("/");
-  };
+  }, [user]);
 
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
@@ -60,22 +56,13 @@ function NavBar() {
               <span className="navbar_link">Welcome, {username}!</span>
             </Link>
           </li>
-          <li className="navbar_item slideInDown-4">
-            <Link className="navbar_link" to="/dashboard">
-              Admin
-            </Link>
-          </li>
-
-          <li className="navbar_item slideInDown-4">
-            <button
-              type="button"
-              className="btn-logout"
-              onClick={handleLogout}
-              aria-hidden
-            >
-              <span>Log out</span>
-            </button>
-          </li>
+          {isAdmin && (
+            <li className="navbar_item slideInDown-4">
+              <Link className="navbar_link" to="/dashboard">
+                Admin
+              </Link>
+            </li>
+          )}
         </ul>
         <button
           className="navbar_burger"

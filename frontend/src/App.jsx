@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { FavoritesProvider } from "./components/FavoritesContext";
+import { FavoritesProvider } from "./contexts/FavoritesContext";
 import "./styles/App.scss";
 
 function App() {

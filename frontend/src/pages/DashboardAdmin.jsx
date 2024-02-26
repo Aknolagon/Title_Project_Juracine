@@ -1,41 +1,74 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
+import { UserContext } from "../contexts/UserContext";
 import "../styles/Dashboard.scss";
 
 function DashboardAdmin() {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
 
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users`
+        `${import.meta.env.VITE_BACKEND_URL}/api/users`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+          },
+        }
       );
       setUsers(response.data);
 
       await axios
-        .get(`${import.meta.env.VITE_BACKEND_URL}/api/userroles`)
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/userroles`, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+          },
+        })
         .then((res) => {
           setRoles(res.data);
         });
     } catch (error) {
+      if (error.response.status === 401) {
+        console.error("Session expired, please log in again.");
+        navigate("/");
+      }
       console.error("Error fetching users", error);
     }
   };
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [user]);
 
   const addNewRole = async (userId) => {
     try {
       const roleId = 2;
 
-      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userroles`, {
-        userId,
-        roleId,
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/userroles`,
+        {
+          userId,
+          roleId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+          },
+        }
+      );
+
+      Swal.fire({
+        title: "Role given successfully!",
+        text: "The member is now admin.",
+        icon: "success",
       });
 
       fetchUsers();
@@ -50,8 +83,14 @@ function DashboardAdmin() {
     try {
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/userroles`, {
         data: { userId, roleId },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+        },
       });
-      console.info("Role successfully deleted");
+      Swal.fire({
+        title: "Role removed successfully!",
+        text: "Member is no longer admin.",
+      });
     } catch (error) {
       console.error("Error deleting account:", error);
     }
@@ -59,13 +98,26 @@ function DashboardAdmin() {
 
   const getRoleName = (roleId) => (roleId === 1 ? "Member" : "Admin");
 
-  // const accountDelete = async () => {
-  //   try {
-  //     await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/users`);
-  //   } catch (error) {
-  //     console.error("Error deleting account:", error);
-  //   }
-  // };
+  const accountDelete = async (userId) => {
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+          },
+        }
+      );
+      Swal.fire({
+        title: "Account removed successfully!",
+        text: "Member is now deleted.",
+        icon: "success",
+      });
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
+  };
 
   return (
     <div className="dashboardAdmin">
@@ -81,15 +133,19 @@ function DashboardAdmin() {
         </div>
         <div className="dashboard-info">
           <div className="dashboard-mail">
-            {users.map((user) => (
-              <ul key={user.id}>
-                <li> Id : {user.id}</li>
-                <li className="mail"> {user.email}</li>
-                {/* <li>
-                  <button type="button" onClick={accountDelete(user.id)}>
+            {users.map((us) => (
+              <ul key={us.id}>
+                <li> Id : {us.id}</li>
+                <li className="mail"> {us.email}</li>
+                <li>
+                  <button
+                    className="remove-admin"
+                    type="button"
+                    onClick={() => accountDelete(us.id)}
+                  >
                     Delete Account
                   </button>
-                </li> */}
+                </li>
               </ul>
             ))}
           </div>
@@ -105,6 +161,7 @@ function DashboardAdmin() {
                     {isAdmin ? (
                       <button
                         type="button"
+                        className="remove-admin"
                         onClick={() => removeRoleAdmin(role.user_id)}
                       >
                         Remove Admin role
@@ -112,6 +169,7 @@ function DashboardAdmin() {
                     ) : (
                       <button
                         type="button"
+                        className="add-admin"
                         onClick={() => addNewRole(role.user_id)}
                       >
                         Give Admin role

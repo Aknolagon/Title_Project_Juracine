@@ -1,7 +1,8 @@
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../styles/Login.scss";
+import Swal from "sweetalert2";
 import Logo from "../assets/LOGO.png";
+import "../styles/Login.scss";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,24}$/;
 const MAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -112,6 +113,11 @@ function Register() {
           );
 
           if (profileResponse.status === 201) {
+            Swal.fire({
+              title: "Account created successfully!",
+              text: "You can now connect.",
+              icon: "success",
+            });
             navigate("/login");
           } else {
             const profileData = await profileResponse.json();

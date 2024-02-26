@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import MovieCard from "./Cards/MovieCard";
+import React, { useState } from "react";
 import "../styles/Carousel.scss";
+import MovieCard from "./Cards/MovieCard";
 
 function CarouselMovies({ movies }) {
   const [currentIndex, setCurrentIndex] = useState(0);
