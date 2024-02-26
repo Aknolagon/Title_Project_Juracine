@@ -21,7 +21,7 @@ const seed = async () => {
     await database.query("delete from profiles");
     queries.push(
       database.query(
-        "insert into profiles (user_id, username, first_name, last_name, address, city, phone_number) values ('1', 'Muchacho', 'lorem', 'ipsum', '33 Wild Code Place 13000', 'Marseille', '05.56.56.56.56')"
+        "insert into profiles (user_id, username, first_name, last_name, address, city, phone_number) values ('1', 'Pras', 'lorem', 'ipsum', '33 Wild Code Place 13000', 'Marseille', '05.56.56.56.56')"
       )
     );
     queries.push(
@@ -40,12 +40,12 @@ const seed = async () => {
     await database.query("delete from user_roles");
     queries.push(
       database.query(
-        "insert into user_roles (user_id, role_id) values ('1', '2')"
+        "insert into user_roles (user_id, role_id) values ('1', '1')"
       )
     );
     queries.push(
       database.query(
-        "insert into user_roles (user_id, role_id) values ('1', '1')"
+        "insert into user_roles (user_id, role_id) values ('1', '2')"
       )
     );
     queries.push(

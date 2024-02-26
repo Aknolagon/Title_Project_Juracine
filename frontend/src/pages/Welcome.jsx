@@ -1,7 +1,7 @@
-import "../styles/Welcome.scss";
-import "../styles/NavBar.scss";
-import NavBarWelcome from "../components/NavBarWelcome";
 import Logo from "../assets/LOGO.png";
+import NavBarWelcome from "../components/NavBarWelcome";
+import "../styles/NavBar.scss";
+import "../styles/Welcome.scss";
 
 function Welcome() {
   return (

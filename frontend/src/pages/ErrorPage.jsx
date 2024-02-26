@@ -1,6 +1,6 @@
 import { useRouteError } from "react-router-dom";
-import "../styles/ErrorPage.scss";
 import LOGO from "../assets/LOGO.png";
+import "../styles/ErrorPage.scss";
 
 function ErrorPage() {
   const error = useRouteError();

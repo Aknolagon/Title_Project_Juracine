@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import Rating from "./Rating";
-import "../styles/InfoCardSerie.scss";
 import closeIcon from "../assets/closeIcon.png";
+import "../styles/InfoCardSerie.scss";
+import Rating from "./Rating";
 
 function InfoCardSerie({ serie, onClose }) {
   if (!serie) {
@@ -19,16 +19,16 @@ function InfoCardSerie({ serie, onClose }) {
   const formattedReleaseDate = formatDate(serie.release_date);
 
   return (
-    <div className="info-card-serie">
+    <section className="info-card-serie">
       <button
         type="button"
         className="close-button"
         onClick={onClose}
-        aria-label="Fermer"
+        aria-label="close"
       >
-        <img src={closeIcon} alt="Fermer" />
+        <img src={closeIcon} alt="close" />
       </button>
-      <h2 id="dialogTitle" className="serieTitle">
+      <h2 id="dialogTitleSerie" className="serieTitle">
         {serie.title}
       </h2>
       <p className="synopsis">{serie.overview}</p>
@@ -59,7 +59,7 @@ function InfoCardSerie({ serie, onClose }) {
       <p className="rating-title">
         Rating : <Rating rating={serie.rating} />
       </p>
-    </div>
+    </section>
   );
 }
 

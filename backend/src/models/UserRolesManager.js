@@ -40,7 +40,6 @@ class UserRolesManager extends AbstractManager {
 
   // D
   async deleteUserRoles({ userId, roleId }) {
-    // console.info(userId, roleId);
     const [rows] = await this.database.query(
       `DELETE FROM ${this.table} WHERE user_id = ? AND role_id = ?`,
       [userId, roleId]

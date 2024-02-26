@@ -1,8 +1,7 @@
-// import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import Loupe from "../assets/Loupe6.png";
 import "../styles/SearchBar.scss";
-import { FavoritesContext } from "./FavoritesContext";
+import { FavoritesContext } from "../contexts/FavoritesContext";
 
 function SearchBar() {
   const [inputSearch, setInputSearch] = useState("");

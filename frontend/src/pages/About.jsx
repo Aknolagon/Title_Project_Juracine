@@ -1,7 +1,7 @@
-import NavBarWelcome from "../components/NavBarWelcome";
-import "../styles/NavBarWelcome.scss";
 import TMDB from "../assets/TMDB.png";
 import Footer from "../components/Footer";
+import NavBarWelcome from "../components/NavBarWelcome";
+import "../styles/NavBarWelcome.scss";
 
 function About() {
   return (

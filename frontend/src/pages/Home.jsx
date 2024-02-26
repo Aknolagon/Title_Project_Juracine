@@ -1,10 +1,10 @@
-import "../styles/Home.scss";
-import SearchBar from "../components/SearchBar";
-import NavBar from "../components/NavBar";
-import UpcomingMovies from "../components/Categories/UpcomingMovies";
 import TrendingMovies from "../components/Categories/TrendingMovies";
 import TrendingSeries from "../components/Categories/TrendingSeries";
+import UpcomingMovies from "../components/Categories/UpcomingMovies";
 import Footer from "../components/Footer";
+import NavBar from "../components/NavBar";
+import SearchBar from "../components/SearchBar";
+import "../styles/Home.scss";
 
 function Home() {
   return (
