@@ -1,10 +1,11 @@
+import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import Swal from "sweetalert2";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
-import "../styles/Profile.scss";
 import { UserContext } from "../contexts/UserContext";
+import "../styles/Profile.scss";
 
 function Profile() {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -23,16 +24,20 @@ function Profile() {
   const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
-  console.info("user:", user);
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/profiles/${id}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/profiles/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+            },
+          }
         );
         const result = response.data;
-        setUsername(result?.username);
+        setUsername(result.username);
         setLastName(result.last_name);
         setFirstName(result.first_name);
         setAddress(result.address);
@@ -40,17 +45,30 @@ function Profile() {
         setPhoneNumber(result.phone_number);
 
         await axios
-          .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`)
+          .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`, {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+            },
+          })
           .then((res) => {
             setEmail(res.data.email);
           });
       } catch (error) {
+        if (error.response.status === 401) {
+          console.error("Session expired, please log in again.");
+          navigate("/");
+        }
         console.error("Error fetching profile:", error);
       }
     };
 
-    fetchProfileData();
-  }, [id]);
+    if (id !== undefined) {
+      fetchProfileData();
+      if (user && user.id !== parseInt(id, 10)) {
+        navigate(`/home`);
+      }
+    }
+  }, [id, user]);
 
   const updateProfile = async (event) => {
     event.preventDefault();
@@ -64,15 +82,33 @@ function Profile() {
           address,
           phoneNumber,
           city,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+          },
         }
       );
 
-      axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`, {
-        email,
-        password,
-      });
+      axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`,
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+          },
+        }
+      );
 
-      setConfirmationUpdate("Profile updated !");
+      setConfirmationUpdate("");
+      Swal.fire({
+        title: "Profile updated",
+        text: "Profile updated successfully!",
+        icon: "success",
+      });
       navigate(`/profile/${id}`);
     } catch (error) {
       console.error(
@@ -88,9 +124,20 @@ function Profile() {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`);
-      console.info("Account successfully deleted");
-      localStorage.removeItem("userToken");
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+          },
+        }
+      );
+      Swal.fire({
+        title: "Account successfully deleted!",
+        text: "You deleted your account. We hope to see you soon!",
+        icon: "success",
+      });
+      sessionStorage.removeItem("userToken");
       navigate("/");
     } catch (error) {
       console.error("Error deleting account:", error);
@@ -102,16 +149,13 @@ function Profile() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("userToken");
     navigate("/");
+    Swal.fire({
+      title: "You are now logged out",
+      text: "See you soon!",
+    });
   };
-
-  // useEffect(() => {
-  //   if (user?.id !== parseInt(id, 10)) {
-  //     navigate("/home");
-  //   }
-  // }, [user, id]);
 
   return (
     <div className="profile">

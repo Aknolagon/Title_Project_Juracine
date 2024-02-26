@@ -1,6 +1,6 @@
 const tables = require("../tables");
 
-// B
+// Browse all users roles
 const browse = async (req, res, next) => {
   try {
     const userRoles = await tables.user_roles.readAllUserRoles();
@@ -10,7 +10,7 @@ const browse = async (req, res, next) => {
   }
 };
 
-// R
+// Read user roles
 const read = async (req, res, next) => {
   try {
     const favorite = await tables.user_roles.readUserRoles(req.params.user_id);
@@ -24,7 +24,7 @@ const read = async (req, res, next) => {
   }
 };
 
-// E
+// Edit user roles
 const edit = async (req, res, next) => {
   try {
     const { newRoleId, roleId, userId } = req.body;
@@ -46,7 +46,7 @@ const edit = async (req, res, next) => {
   }
 };
 
-// A
+// Add user roles
 const add = async (req, res, next) => {
   const userRoles = req.body;
   try {
@@ -57,7 +57,7 @@ const add = async (req, res, next) => {
   }
 };
 
-// D
+// Delete user roles
 const destroy = async (req, res, next) => {
   try {
     const { roleId, userId } = req.body;

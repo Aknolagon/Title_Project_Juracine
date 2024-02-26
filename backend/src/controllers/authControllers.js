@@ -17,23 +17,22 @@ const login = async (req, res, next) => {
     if (verified) {
       delete user.hashed_password;
 
-      const isAdmin = await tables.user_roles.readUserRoles(user.id, "Admin");
-
-      if (isAdmin) {
+      {
         const token = await jwt.sign(
-          { sub: user.id, isAdmin: true },
+          {
+            id: user.id,
+            username: user.username,
+            isAdmin: user.isAdmin,
+          },
           process.env.APP_SECRET,
           {
-            expiresIn: "100s",
+            expiresIn: "1800s",
           }
         );
         res.json({
           token,
           user,
         });
-      } else {
-        // User doesn't have the "admin" role
-        res.status(403).json({ message: "You are not authorized as admin" });
       }
     } else {
       res.sendStatus(422);

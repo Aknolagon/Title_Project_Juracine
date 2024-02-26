@@ -14,7 +14,7 @@ function SerieCard({ serieId }) {
 
   const isFavorite = favorites.some((favorite) => favorite.id === serieId);
 
-  // FETCH DES INFOS POUR INFOCARD
+  // FETCH series details
 
   const fetchSerieDetails = async () => {
     try {
@@ -39,7 +39,7 @@ function SerieCard({ serieId }) {
     }
   };
 
-  // FETCH DES VIGNETTES
+  // FETCH image poster
 
   const fetchSeriePoster = async () => {
     try {
@@ -56,7 +56,7 @@ function SerieCard({ serieId }) {
 
   fetchSeriePoster();
 
-  // Gestion de l'affichage de l'InfoCard
+  // handle info card visibility
 
   const toggleInfoCard = () => {
     if (!showInfo) {
@@ -64,7 +64,7 @@ function SerieCard({ serieId }) {
     }
     setShowInfo(!showInfo);
   };
-  // Gestion du clavier pour l'accessibilité
+  // handle info card visibility on enter key press
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -72,7 +72,7 @@ function SerieCard({ serieId }) {
     }
   };
 
-  // Gestion du clic sur le cœur pour ajouter/supprimer des favoris
+  // handle favorite button click
 
   const handleFavoriteClick = (e) => {
     e.stopPropagation();

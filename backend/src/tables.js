@@ -5,10 +5,10 @@ const UsersManager = require("./models/UsersManager");
 const UserRolesManager = require("./models/UserRolesManager");
 
 const managers = [
-  UserRolesManager,
   ProfilesManager,
   RolesManager,
   UsersManager,
+  UserRolesManager,
   // Add other managers here
 ];
 

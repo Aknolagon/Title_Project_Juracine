@@ -1,6 +1,6 @@
 // import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Logo from "../assets/LOGO.png";
 import "../styles/NavBar.scss";
 import { UserContext } from "../contexts/UserContext";
@@ -9,7 +9,7 @@ function NavBar() {
   const [showLinks, setShowLinks] = useState(false);
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
-  const [userRole, setUserRole] = useState();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const { user } = useContext(UserContext);
 
@@ -17,16 +17,9 @@ function NavBar() {
     if (user) {
       setUsername(user.username);
       setUserId(user.id);
-      setUserRole(user.role);
+      setIsAdmin(user.isAdmin);
     }
   }, [user]);
-
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("userToken");
-    navigate("/");
-  };
 
   const handleShowLinks = () => {
     setShowLinks(!showLinks);
@@ -64,23 +57,13 @@ function NavBar() {
               <span className="navbar_link">Welcome, {username}!</span>
             </Link>
           </li>
-          {userRole === 2 && (
+          {isAdmin && (
             <li className="navbar_item slideInDown-4">
               <Link className="navbar_link" to="/dashboard">
                 Admin
               </Link>
             </li>
           )}
-          <li className="navbar_item slideInDown-4">
-            <button
-              type="button"
-              className="btn-logout"
-              onClick={handleLogout}
-              aria-hidden
-            >
-              <span>Log out</span>
-            </button>
-          </li>
         </ul>
         <button
           className="navbar_burger"

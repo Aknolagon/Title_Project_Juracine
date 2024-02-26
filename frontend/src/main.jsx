@@ -22,8 +22,18 @@ import DashboardAdmin from "./pages/DashboardAdmin";
 import { UserProvider } from "./contexts/UserContext";
 
 const isAuthentificated = () => {
-  const userToken = localStorage.getItem("userToken");
+  const userToken = sessionStorage.getItem("userToken");
   return !!userToken;
+};
+
+const isAdministrator = () => {
+  if (isAuthentificated() === true) {
+    const decodedToken = JSON.parse(
+      atob(sessionStorage.getItem("userToken").split(".")[1])
+    );
+    return decodedToken.isAdmin;
+  }
+  return false;
 };
 
 const router = createBrowserRouter([
@@ -73,7 +83,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: isAuthentificated() ? <DashboardAdmin /> : <Navigate to="/" />,
+        element: isAdministrator() ? <DashboardAdmin /> : <Navigate to="/" />,
       },
     ],
   },

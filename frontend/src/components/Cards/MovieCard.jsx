@@ -14,7 +14,7 @@ function MovieCard({ movieId }) {
 
   const isFavorite = favorites.some((favorite) => favorite.id === movieId);
 
-  // Fetch des détails du film pour l'InfoCard
+  // Fetch movie details
   const fetchMovieDetails = async () => {
     try {
       const response = await axios.get(
@@ -38,7 +38,7 @@ function MovieCard({ movieId }) {
     }
   };
 
-  // Fetch de l'affiche du film
+  // Fetch image poster
   const fetchMoviePoster = async () => {
     try {
       const response = await axios.get(
@@ -54,7 +54,7 @@ function MovieCard({ movieId }) {
 
   fetchMoviePoster();
 
-  // Gestion de l'affichage de l'InfoCard
+  // handle info card visibility
   const toggleInfoCard = () => {
     if (!showInfo) {
       fetchMovieDetails();
@@ -62,13 +62,13 @@ function MovieCard({ movieId }) {
     setShowInfo(!showInfo);
   };
 
-  // Gestion du clavier pour l'accessibilité
+  // handle key press
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       toggleInfoCard();
     }
   };
-  // Gestion du clic sur le cœur pour ajouter/supprimer des favoris
+  // handle favorite click
   const handleFavoriteClick = (e) => {
     e.stopPropagation();
     if (isFavorite) {

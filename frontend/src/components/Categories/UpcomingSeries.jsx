@@ -5,7 +5,7 @@ import CarouselSeries from "../CarouselSeries";
 function UpcomingSeries() {
   const [upco, setUpco] = useState([]);
 
-  // Fetch des films à venir
+  // Fetch upcoming series
   const fetchUpco = async () => {
     try {
       const response = await axios.get(
@@ -18,7 +18,7 @@ function UpcomingSeries() {
       console.error("Error fetching movies", error);
     }
   };
-  // dans le tableau de recom
+  // Fetch upcoming series on component mount
   if (upco.length === 0) {
     fetchUpco();
   }

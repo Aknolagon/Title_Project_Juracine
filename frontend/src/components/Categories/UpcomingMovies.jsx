@@ -5,7 +5,7 @@ import CarouselMovies from "../CarouselMovies";
 function UpcomingMovies() {
   const [upco, setUpco] = useState([]);
 
-  // Fetch des films à venir
+  // Fetch upcoming movies
   const fetchUpco = async () => {
     try {
       const response = await axios.get(
@@ -18,7 +18,7 @@ function UpcomingMovies() {
       console.error("Error fetching movies", error);
     }
   };
-  // dans le tableau de recom
+  // Fetch upcoming movies on component mount
   if (upco.length === 0) {
     fetchUpco();
   }

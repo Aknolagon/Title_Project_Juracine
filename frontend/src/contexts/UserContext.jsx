@@ -1,45 +1,30 @@
-import React, { createContext, useReducer } from "react";
-/* eslint-disable */
+import React, { createContext, useState, useMemo, useEffect } from "react";
+import PropTypes from "prop-types";
 
 const UserContext = createContext();
 
-// function UserProvider({ children }) {
-//   const [user, setUser] = useState(null);
-
-//   useEffect(() => {
-//     console.info(user);
-//   }, [user]);
-
-//   const updateUser = (newUserData) => {
-//     console.info("newUserData:", newUserData);
-//     setUser(currentUser => ({...currentUser, ...newUserData}));
-//   };
-
-// const value = useMemo(() => ({ user, updateUser }), [user, updateUser]);
-
-const userReducer = (state, action) => {
-  switch (action.type) {
-    case "UPDATE_USER":
-      const newState = { ...state, ...action.payload };
-      console.log("New State:", newState);
-      return newState;
-    default:
-      return state;
-  }
-};
-
 function UserProvider({ children }) {
-  const [user, dispatch] = useReducer(userReducer, null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("userToken");
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split(".")[1]));
+      setUser(decodedToken);
+    }
+  }, []);
 
   const updateUser = (newUserData) => {
-    dispatch({ type: "UPDATE_USER", payload: newUserData });
+    setUser((currentUser) => ({ ...currentUser, ...newUserData }));
   };
 
-  return (
-    <UserContext.Provider value={{ user, updateUser }}>
-      {children}
-    </UserContext.Provider>
-  );
+  const value = useMemo(() => ({ user, updateUser }), [user, updateUser]);
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
 export { UserProvider, UserContext };
+
+UserProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

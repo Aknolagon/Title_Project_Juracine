@@ -19,7 +19,7 @@ function InfoCardMovie({ movie, onClose }) {
   const formattedReleaseDate = formatDate(movie.release_date);
 
   return (
-    <div className="info-card-movie">
+    <section className="info-card-movie">
       <button
         type="button"
         className="close-button"
@@ -28,7 +28,7 @@ function InfoCardMovie({ movie, onClose }) {
       >
         <img src={closeIcon} alt="Fermer" />
       </button>
-      <h2 id="dialogTitle" className="movieTitle">
+      <h2 id="dialogTitleMovie" className="movieTitle">
         {movie.title}
       </h2>
       <p className="synopsis">{movie.overview}</p>
@@ -59,7 +59,7 @@ function InfoCardMovie({ movie, onClose }) {
       <p className="rating-title">
         Rating : <Rating rating={movie.rating} />
       </p>
-    </div>
+    </section>
   );
 }
 

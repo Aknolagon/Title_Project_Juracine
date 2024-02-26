@@ -43,40 +43,27 @@ function Login() {
 
       if (response.status === 200) {
         const auth = await response.json();
+        sessionStorage.setItem("userToken", auth.token);
 
-        localStorage.setItem("userToken", auth.token);
-        // localStorage.setItem(
-        //   "user",
-        //   JSON.stringify({ id: auth.user.id, username: auth.user.username })
-        // );
         updateUser({
           id: auth.user.id,
           username: auth.user.username,
           role: auth.user.role_id,
         });
-        console.info("auth:", auth);
 
         window.location.href = `/profile/${auth.user.id}`;
-      } else {
-        console.info(response);
       }
     } catch (err) {
       console.error(err);
     }
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     console.info("user:", user);
-  //   }
-  // }, [user]);
-
   return (
     <div className="page-container">
       <div className="login">
         <img className="logo" src={Logo} alt="logo" />
         <section>
-          <form onSubmit={handleSubmit}>
+          <form id="login" onSubmit={handleSubmit}>
             <div>
               <label id="form-co-mail" htmlFor="email-co">
                 {" "}

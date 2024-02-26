@@ -19,7 +19,7 @@ function InfoCardSerie({ serie, onClose }) {
   const formattedReleaseDate = formatDate(serie.release_date);
 
   return (
-    <div className="info-card-serie">
+    <section className="info-card-serie">
       <button
         type="button"
         className="close-button"
@@ -28,7 +28,7 @@ function InfoCardSerie({ serie, onClose }) {
       >
         <img src={closeIcon} alt="Fermer" />
       </button>
-      <h2 id="dialogTitle" className="serieTitle">
+      <h2 id="dialogTitleSerie" className="serieTitle">
         {serie.title}
       </h2>
       <p className="synopsis">{serie.overview}</p>
@@ -59,7 +59,7 @@ function InfoCardSerie({ serie, onClose }) {
       <p className="rating-title">
         Rating : <Rating rating={serie.rating} />
       </p>
-    </div>
+    </section>
   );
 }
 
