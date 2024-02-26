@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import Rating from "./Rating";
-import "../styles/InfoCardMovie.scss";
 import closeIcon from "../assets/closeIcon.png";
+import "../styles/InfoCardMovie.scss";
+import Rating from "./Rating";
 
 function InfoCardMovie({ movie, onClose }) {
   if (!movie) {
@@ -24,9 +24,9 @@ function InfoCardMovie({ movie, onClose }) {
         type="button"
         className="close-button"
         onClick={onClose}
-        aria-label="Fermer"
+        aria-label="close"
       >
-        <img src={closeIcon} alt="Fermer" />
+        <img src={closeIcon} alt="closed" />
       </button>
       <h2 id="dialogTitleMovie" className="movieTitle">
         {movie.title}

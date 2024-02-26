@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
+import PropTypes from "prop-types";
+import React, { useContext, useState } from "react";
 import "../../styles/MovieCard.scss";
-import InfoCardMovie from "../InfoCardMovie";
 import { FavoritesContext } from "../FavoritesContext";
+import InfoCardMovie from "../InfoCardMovie";
 
 function MovieCard({ movieId }) {
   const [posterPath, setPosterPath] = useState("");

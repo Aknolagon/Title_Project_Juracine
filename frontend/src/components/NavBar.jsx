@@ -2,8 +2,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/LOGO.png";
-import "../styles/NavBar.scss";
 import { UserContext } from "../contexts/UserContext";
+import "../styles/NavBar.scss";
 
 function NavBar() {
   const [showLinks, setShowLinks] = useState(false);

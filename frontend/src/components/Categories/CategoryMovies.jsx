@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import CarouselMovies from "../CarouselMovies";
+import React, { useEffect, useState } from "react";
 import "../../styles/CategoryStyle.scss";
+import CarouselMovies from "../CarouselMovies";
 
 function CategoryMovies() {
   const [genres, setGenres] = useState([]);

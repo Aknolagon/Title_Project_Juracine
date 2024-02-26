@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
+import PropTypes from "prop-types";
+import React, { useContext, useState } from "react";
 import "../../styles/SerieCard.scss";
-import InfoCardSerie from "../InfoCardSerie";
 import { FavoritesContext } from "../FavoritesContext";
+import InfoCardSerie from "../InfoCardSerie";
 
 function SerieCard({ serieId }) {
   const [posterPath, setPosterPath] = useState("");

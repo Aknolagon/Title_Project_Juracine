@@ -1,12 +1,12 @@
 // Favorites.jsx
 import React, { useContext } from "react";
-import { FavoritesContext } from "../components/FavoritesContext";
 import MovieCard from "../components/Cards/MovieCard";
 import SerieCard from "../components/Cards/SerieCard";
+import { FavoritesContext } from "../components/FavoritesContext";
+import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
 import "../styles/Favorites.scss";
-import Footer from "../components/Footer";
 
 function Favorites() {
   const { favorites } = useContext(FavoritesContext);

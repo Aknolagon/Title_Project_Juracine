@@ -1,11 +1,11 @@
+import PropTypes from "prop-types";
 import React, {
   createContext,
-  useState,
   useContext,
-  useMemo,
   useEffect,
+  useMemo,
+  useState,
 } from "react";
-import PropTypes from "prop-types";
 
 export const FavoritesContext = createContext();
 
