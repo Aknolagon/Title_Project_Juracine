@@ -2,8 +2,10 @@ const express = require("express");
 
 const router = express.Router();
 
+// middlewares
 const { hashPassword, verifyToken } = require("./middlewares/auth");
 
+// controllers
 const usersControllers = require("./controllers/usersControllers");
 const profilesControllers = require("./controllers/profilesControllers");
 const rolesControllers = require("./controllers/rolesControllers");

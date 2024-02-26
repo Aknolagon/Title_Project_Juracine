@@ -2,7 +2,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import React, { useContext, useState } from "react";
 import "../../styles/SerieCard.scss";
-import { FavoritesContext } from "../FavoritesContext";
+import { FavoritesContext } from "../../contexts/FavoritesContext";
 import InfoCardSerie from "../InfoCardSerie";
 
 function SerieCard({ serieId }) {

@@ -90,7 +90,6 @@ function DashboardAdmin() {
       Swal.fire({
         title: "Role removed successfully!",
         text: "Member is no longer admin.",
-        icon: "failure",
       });
     } catch (error) {
       console.error("Error deleting account:", error);
@@ -139,7 +138,11 @@ function DashboardAdmin() {
                 <li> Id : {us.id}</li>
                 <li className="mail"> {us.email}</li>
                 <li>
-                  <button type="button" onClick={() => accountDelete(us.id)}>
+                  <button
+                    className="remove-admin"
+                    type="button"
+                    onClick={() => accountDelete(us.id)}
+                  >
                     Delete Account
                   </button>
                 </li>
@@ -158,6 +161,7 @@ function DashboardAdmin() {
                     {isAdmin ? (
                       <button
                         type="button"
+                        className="remove-admin"
                         onClick={() => removeRoleAdmin(role.user_id)}
                       >
                         Remove Admin role
@@ -165,6 +169,7 @@ function DashboardAdmin() {
                     ) : (
                       <button
                         type="button"
+                        className="add-admin"
                         onClick={() => addNewRole(role.user_id)}
                       >
                         Give Admin role

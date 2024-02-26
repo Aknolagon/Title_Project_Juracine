@@ -1,11 +1,10 @@
-// Favorites.jsx
 import React, { useContext } from "react";
 import MovieCard from "../components/Cards/MovieCard";
 import SerieCard from "../components/Cards/SerieCard";
-import { FavoritesContext } from "../components/FavoritesContext";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
+import { FavoritesContext } from "../contexts/FavoritesContext";
 import "../styles/Favorites.scss";
 
 function Favorites() {
