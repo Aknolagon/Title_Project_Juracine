@@ -53,20 +53,6 @@ const add = async (req, res, next) => {
   }
 };
 
-const addAdmin = async (req, res, next) => {
-  if (!req.auth.isAdmin) {
-    res.sendStatus(403);
-    return;
-  }
-  const users = { ...req.body, id: req.auth.sub };
-  try {
-    const insertId = await tables.users.create(users);
-    res.status(201).json({ insertId });
-  } catch (err) {
-    next(err);
-  }
-};
-
 // D
 const destroy = async (req, res, next) => {
   try {
@@ -87,6 +73,5 @@ module.exports = {
   read,
   edit,
   add,
-  addAdmin,
   destroy,
 };
