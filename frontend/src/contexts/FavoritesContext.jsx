@@ -20,10 +20,10 @@ export function FavoritesProvider({ children }) {
   const removeFavorite = (id) =>
     setFavorites((prev) => prev.filter((fav) => fav.id !== id));
 
-  // const isFavorite = (id) => favorites.some((fav) => fav.id === id);
+  const isFavorite = (id) => favorites.some((fav) => fav.id === id);
 
   const value = useMemo(
-    () => ({ favorites, addFavorite, removeFavorite }),
+    () => ({ favorites, addFavorite, removeFavorite, isFavorite }),
     [favorites]
   );
 
