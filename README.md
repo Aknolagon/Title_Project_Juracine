@@ -58,8 +58,8 @@ The database is automaticaly deployed with the name of your repo. During the bui
 
 Don't use any public folder on your frontend. This folder won't be accessible online. You may move your public assets in the `backend/public` folder.
 
-## Authors
-KALKI Prasanna - Web Developer and Web Mobile
-
-# License
+## License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+# Authors
+KALKI Prasanna - Web Developer and Web Mobile
