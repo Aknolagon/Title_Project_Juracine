@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Logo from "../assets/LOGO.png";
-import "../styles/Login.scss";
+import "../styles/Register.scss";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,24}$/;
 const MAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -138,10 +138,10 @@ function Register() {
   };
 
   return (
-    <div className="login">
+    <div className="register">
       <div className="page-container">
         <img className="logo" src={Logo} alt="logo" />
-        <section>
+        <section className="section">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -150,40 +150,47 @@ function Register() {
             {errMsg}
           </p>
           <h1>Register</h1>
-          <form id="form_subscribe" onSubmit={handleSubmit}>
-            <label id="form-sub-username" htmlFor="username">
-              Username :
-              <span className={validName ? "valid" : "hide"}>Good</span>
-              <span className={validName || !name ? "hide" : "invalid"}>
-                Not good
+          <form id="subscribe" onSubmit={handleSubmit}>
+            <label className="label" id="form-sub-username" htmlFor="username">
+              <span>
+                Username :{" "}
+                <span className={validName ? "valid" : "hide"}>Good</span>
+                <span className={validName || !name ? "hide" : "invalid"}>
+                  Not good
+                </span>
               </span>
+              <input
+                type="text"
+                id="username"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setName(e.target.value)}
+                required
+                aria-invalid={validName ? "false" : "true"}
+                aria-describedby="uidnote"
+                onFocus={() => setNameFocus(true)}
+                onBlur={() => setNameFocus(false)}
+              />
+              <p
+                id="usernote"
+                className={
+                  nameFocus && !validName ? "instructions" : "offscreen"
+                }
+              >
+                4 to 24 characters.
+                <br />
+                Must begin with a letter.
+                <br />
+                Letters, numbers allowed.
+              </p>
             </label>
-            <input
-              type="text"
-              id="username"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setName(e.target.value)}
-              required
-              aria-invalid={validName ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setNameFocus(true)}
-              onBlur={() => setNameFocus(false)}
-            />
-            <p
-              id="uidnote"
-              className={nameFocus && !validName ? "instructions" : "offscreen"}
-            >
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
-            </p>
-            <label id="form-sub-email" htmlFor="email-reg">
-              Email :<span className={validMail ? "valid" : "hide"}>Good</span>
-              <span className={validMail || !mail ? "hide" : "invalid"}>
-                Not good
+            <label className="label" id="form-sub-email" htmlFor="email-reg">
+              <span>
+                Email :{" "}
+                <span className={validMail ? "valid" : "hide"}>Good</span>
+                <span className={validMail || !mail ? "hide" : "invalid"}>
+                  Not good
+                </span>
               </span>
               <input
                 type="mail"
@@ -209,12 +216,13 @@ function Register() {
                 <br />
               </p>
             </label>
-
-            <label htmlFor="password-reg">
-              Password:
-              <span className={validPwd ? "valid" : "hide"}>Good</span>
-              <span className={validPwd || !pwd ? "hide" : "invalid"}>
-                Not good
+            <label className="label" htmlFor="password-reg">
+              <span>
+                Password :{" "}
+                <span className={validPwd ? "valid" : "hide"}>Good</span>
+                <span className={validPwd || !pwd ? "hide" : "invalid"}>
+                  Not good
+                </span>
               </span>
               <input
                 type="password"
@@ -232,13 +240,12 @@ function Register() {
               >
                 8 to 24 characters.
                 <br />
-                Must include uppercase and lowercase letters, a number and a
-                special character.
+                Must include one uppercase letter, a number and a special
+                character.
                 <br />
                 Use a special character from [@!%_*?&-]
               </p>
             </label>
-
             <button id="button" type="submit" className="button">
               Register
             </button>

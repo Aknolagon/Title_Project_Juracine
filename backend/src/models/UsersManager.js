@@ -41,7 +41,7 @@ class UsersManager extends AbstractManager {
 
   async readAll() {
     const [rows] = await this.database.query(
-      `SELECT id, email FROM ${this.table}`
+      `SELECT id, email FROM ${this.table} ORDER BY id ASC`
     );
     return rows;
   }

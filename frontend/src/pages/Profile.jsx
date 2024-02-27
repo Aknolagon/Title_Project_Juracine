@@ -242,7 +242,7 @@ function Profile() {
           onClick={handleLogout}
           aria-hidden
         >
-          <span>Log out</span>
+          Log out
         </button>
         <button className="btn-delete" type="submit" onClick={handleDelete}>
           Delete your account*
