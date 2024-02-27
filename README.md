@@ -61,5 +61,5 @@ Don't use any public folder on your frontend. This folder won't be accessible on
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
 
-# Authors
+# Author
 KALKI Prasanna - Web Developer and Web Mobile
