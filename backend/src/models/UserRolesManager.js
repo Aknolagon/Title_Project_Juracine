@@ -25,7 +25,9 @@ class UserRolesManager extends AbstractManager {
   }
 
   async readAllUserRoles() {
-    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} ORDER BY user_id ASC`
+    );
     return rows;
   }
 

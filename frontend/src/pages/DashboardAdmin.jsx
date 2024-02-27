@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import NavBar from "../components/NavBar";
-import SearchBar from "../components/SearchBar";
 import { UserContext } from "../contexts/UserContext";
 import "../styles/Dashboard.scss";
 
@@ -122,24 +121,21 @@ function DashboardAdmin() {
   return (
     <div className="dashboardAdmin">
       <NavBar />
-      <SearchBar />
-      <h2>Member Management</h2>
+      <h2 className="title">Member Management</h2>
       <section className="dashboard">
-        <div>
-          <ul className="dashboard-category">
-            <li>Email and Id</li>
-            <li>Id and Role</li>
-          </ul>
-        </div>
+        <ul className="dashboard-category">
+          <li>Email & Id</li> ||
+          <li>Id & Role</li>
+        </ul>
         <div className="dashboard-info">
           <div className="dashboard-mail">
             {users.map((us) => (
               <ul key={us.id}>
                 <li> Id : {us.id}</li>
                 <li className="mail"> {us.email}</li>
-                <li>
+                <li className="mail">
                   <button
-                    className="remove-admin"
+                    className="remove-account"
                     type="button"
                     onClick={() => accountDelete(us.id)}
                   >
@@ -157,7 +153,7 @@ function DashboardAdmin() {
                 <ul key={oneKey}>
                   <li> Id : {role.user_id}</li>
                   <li className="role"> Role : {getRoleName(role.role_id)}</li>
-                  <li>
+                  <li className="role">
                     {isAdmin ? (
                       <button
                         type="button"

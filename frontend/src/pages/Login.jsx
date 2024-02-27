@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import "../styles/Login.scss";
+import "../styles/Register.scss";
 import Logo from "../assets/LOGO.png";
 import { UserContext } from "../contexts/UserContext";
 
@@ -59,38 +59,35 @@ function Login() {
   };
 
   return (
-    <div className="page-container">
-      <div className="login">
+    <div className="register">
+      <div className="page-container">
         <img className="logo" src={Logo} alt="logo" />
-        <section>
+        <section className="section">
+          <h1>Login</h1>
           <form id="login" onSubmit={handleSubmit}>
-            <div>
-              <label id="form-co-mail" htmlFor="email-co">
-                {" "}
-                <input
-                  ref={emailRef}
-                  autoComplete="on"
-                  type="mail"
-                  id="email-co"
-                  placeholder="Email"
-                  required
-                  aria-describedby="uidnote"
-                />
-              </label>
-            </div>
-            <div>
-              <label id="form-co-pass" htmlFor="password-co">
-                {" "}
-                <input
-                  type="password"
-                  id="password-co"
-                  autoComplete="on"
-                  placeholder="Password"
-                  ref={pwdRef}
-                  onChange={(e) => setValidPwd(e.target.value)}
-                />
-              </label>
-            </div>
+            <label className="label" id="form-co-mail" htmlFor="email-co">
+              <span className="email-log">Email : </span>
+              <input
+                ref={emailRef}
+                autoComplete="on"
+                type="mail"
+                id="email-co"
+                required
+                aria-describedby="uidnote"
+              />
+            </label>
+            <label className="label" id="form-co-pass" htmlFor="password-co">
+              <span className="email-log">Password : </span>
+              <input
+                ref={pwdRef}
+                autoComplete="on"
+                type="password"
+                id="password-co"
+                required
+                onChange={(e) => setValidPwd(e.target.value)}
+                aria-describedby="pwdnote"
+              />
+            </label>
             <button
               className="button"
               id="button"
