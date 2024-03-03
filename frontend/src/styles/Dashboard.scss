@@ -1,3 +1,5 @@
+@import "./variables";
+
 .dashboardAdmin {
   display: flex;
   flex-direction: column;
@@ -9,7 +11,7 @@
     background-color: #ebbf85;
     border-radius: 10px;
     margin: auto;
-    font-family: "AbeeZee", sans-serif;
+    font-family: $font-family;
     margin-bottom: 3rem;
     text-align: center;
     margin-top: 3rem;
@@ -27,7 +29,7 @@
       opacity: 90%;
       border-radius: 10px;
       margin: auto;
-      font-family: "AbeeZee", sans-serif;
+      font-family: $font-family;
       margin-bottom: 3rem;
       text-align: center;
       color: black;
@@ -37,6 +39,7 @@
     .dashboard-info {
       display: flex;
       justify-content: space-between;
+      font-family: $font-family;
 
       .dashboard-mail,
       .dashboard-role {
