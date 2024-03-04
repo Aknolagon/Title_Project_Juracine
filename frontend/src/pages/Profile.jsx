@@ -236,12 +236,7 @@ function Profile() {
         </div>
       )}
       <div className="btn-details">
-        <button
-          type="button"
-          className="btn-logout"
-          onClick={handleLogout}
-          aria-hidden
-        >
+        <button type="button" className="btn-logout" onClick={handleLogout}>
           Log out
         </button>
         <button className="btn-delete" type="submit" onClick={handleDelete}>

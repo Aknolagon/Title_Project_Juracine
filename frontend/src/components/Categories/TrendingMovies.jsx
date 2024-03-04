@@ -24,7 +24,7 @@ function TrendingMovies() {
 
   return (
     <div className="barre">
-      <h2 className="cross-bar">Trending Movies</h2>
+      <h1 className="cross-bar">Trending Movies</h1>
       <CarouselMovies movies={trending} />
     </div>
   );

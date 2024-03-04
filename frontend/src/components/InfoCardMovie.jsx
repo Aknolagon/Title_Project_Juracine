@@ -28,9 +28,9 @@ function InfoCardMovie({ movie, onClose }) {
       >
         <img src={closeIcon} alt="closed" />
       </button>
-      <h2 id="dialogTitleMovie" className="movieTitle">
+      <h1 id="dialogTitleMovie" className="movieTitle">
         {movie.title}
-      </h2>
+      </h1>
       <p className="synopsis">{movie.overview}</p>
       <p className="release">Release Date : {formattedReleaseDate}</p>
       {movie.trailerKey && (

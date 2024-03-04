@@ -25,7 +25,7 @@ function UpcomingSeries() {
 
   return (
     <div className="barre">
-      <h2 className="cross-bar">Series On The Air</h2>
+      <h1 className="cross-bar">Series On The Air</h1>
       <CarouselSeries series={upco} />
     </div>
   );

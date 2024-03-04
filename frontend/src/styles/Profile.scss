@@ -1,3 +1,5 @@
+@import "./variables";
+
 .profile {
   display: flex;
   flex-direction: column;
@@ -12,18 +14,23 @@
   .form {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
     gap: 2rem;
+    width: 100%;
 
     input {
       background: #ebbf85;
       color: black;
-      border-radius: 1rem;
-      padding: 10px 15px;
+      border-radius: 1.4rem;
+      padding: 10px 30px;
+      font-size: 1.5rem;
+      text-align: center;
+      font-family: $font-family;
     }
 
     ::placeholder {
       color: whitesmoke;
+      font-size: 1.5rem;
+      text-align: center;
     }
 
     .input-city {
@@ -106,12 +113,35 @@
   .profile {
     .form {
       width: 90%;
+      .btn-update {
+        font-size: 1.3rem;
+      }
     }
 
     .btn-details {
       margin-top: 5rem;
-      .btn-update,
       .btn-delete {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 950px) and (min-width: 650px) {
+  .profile {
+    .form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 95%;
+      .btn-update {
+        font-size: 1.3rem;
+      }
+    }
+
+    .btn-details {
+      margin-top: 5rem;
+      .btn-delete,
+      .btn-logout {
         font-size: 1.3rem;
       }
     }
