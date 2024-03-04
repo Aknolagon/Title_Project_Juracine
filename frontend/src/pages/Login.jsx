@@ -51,7 +51,7 @@ function Login() {
           role: auth.user.role_id,
         });
 
-        window.location.href = `/profile/${auth.user.id}`;
+        window.location.href = `/home`;
       }
     } catch (err) {
       console.error(err);
@@ -97,7 +97,8 @@ function Login() {
               Connexion
             </button>
             <span>
-              Don't have any account ? Click <Link to="/register">Here</Link>
+              Don't have any account ? Click to{" "}
+              <Link to="/register">Register</Link>
             </span>
           </form>
         </section>

@@ -121,7 +121,7 @@ function DashboardAdmin() {
   return (
     <div className="dashboardAdmin">
       <NavBar />
-      <h2 className="title">Member Management</h2>
+      <h1 className="title">Member Management</h1>
       <section className="dashboard">
         <ul className="dashboard-category">
           <li>Email & Id</li> ||

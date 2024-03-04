@@ -28,9 +28,9 @@ function InfoCardSerie({ serie, onClose }) {
       >
         <img src={closeIcon} alt="close" />
       </button>
-      <h2 id="dialogTitleSerie" className="serieTitle">
+      <h1 id="dialogTitleSerie" className="serieTitle">
         {serie.title}
-      </h2>
+      </h1>
       <p className="synopsis">{serie.overview}</p>
       <p className="release">Release Date : {formattedReleaseDate}</p>
       {serie.trailerKey && (

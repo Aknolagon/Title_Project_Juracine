@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=ABeeZee");
+@import "./variables";
 
 .navbar {
   display: flex;
@@ -34,7 +34,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    font-family: "AbeeZee", sans-serif;
+    font-family: $font-family;
   }
   .home-link {
     display: flex;

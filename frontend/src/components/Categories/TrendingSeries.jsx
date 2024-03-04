@@ -24,7 +24,7 @@ function TrendingSeries() {
 
   return (
     <div className="barre">
-      <h2 className="cross-bar">Trending Series</h2>
+      <h1 className="cross-bar">Trending Series</h1>
       <CarouselSeries series={trending} />
     </div>
   );

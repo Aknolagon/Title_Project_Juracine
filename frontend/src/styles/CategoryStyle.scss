@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=ABeeZee");
+@import "./variables";
 
 .barre {
   img {
@@ -12,7 +12,7 @@
     background-color: #ebbf85;
     border-radius: 10px;
     margin: auto;
-    font-family: "AbeeZee", sans-serif;
+    font-family: $font-family;
     margin-bottom: 3rem;
     text-align: center;
     margin-top: 3rem;
@@ -23,7 +23,7 @@
     padding: 10px 10px;
     width: 95%;
     background-color: #ebbf85;
-    font-family: "AbeeZee", sans-serif;
+    font-family: $font-family;
     border-radius: 10px;
     margin: auto;
     margin-bottom: 3rem;

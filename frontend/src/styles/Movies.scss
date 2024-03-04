@@ -1,25 +1,14 @@
-.movie-mosaic {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  grid-template-rows: repeat(2, auto);
-  gap: 20px;
-  justify-content: center;
-
-  .movie-card {
-    width: 100%;
-    max-width: 300px;
-  }
-}
+@import "./variables";
 
 @media screen and (max-width: 750px) {
   .movies {
-    h2.cross-bar {
+    .cross-bar {
       padding: 10px 10px;
       width: 80%;
       background-color: #ebbf85;
       border-radius: 10px;
       margin: auto;
-      font-family: "AbeeZee", sans-serif;
+      font-family: $font-family;
       margin-bottom: 3rem;
       text-align: center;
       margin-top: 3rem;
