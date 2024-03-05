@@ -9,7 +9,7 @@
   h1 {
     padding: 10px 10px;
     width: 95%;
-    background-color: #ebbf85;
+    background-color: $gold;
     border-radius: 10px;
     margin: auto;
     font-family: $font-family;
@@ -22,7 +22,7 @@
   h2 {
     padding: 10px 10px;
     width: 95%;
-    background-color: #ebbf85;
+    background-color: $gold;
     font-family: $font-family;
     border-radius: 10px;
     margin: auto;
@@ -36,9 +36,9 @@
     font-size: 1.5rem;
     border-radius: 8px;
     background-color: #1a1a1a;
-    color: #ebbf85;
+    color: $gold;
     padding: 1%;
-    box-shadow: 0px 0px 6px #ebbf85;
+    box-shadow: 0px 0px 6px $gold;
   }
   .slider-value {
     text-align: center;
@@ -61,9 +61,9 @@
       font-size: 1.5rem;
       border-radius: 8px;
       background-color: #1a1a1a;
-      color: #ebbf85;
+      color: $gold;
       padding: 1%;
-      box-shadow: 0px 0px 6px #ebbf85;
+      box-shadow: 0px 0px 6px $gold;
       margin: auto;
       margin-bottom: 2rem;
       margin-top: 2rem;

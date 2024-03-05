@@ -4,95 +4,74 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  font-family: $font-family;
 
   .title {
-    padding: 10px 10px;
-    width: 80%;
-    background-color: #ebbf85;
-    border-radius: 10px;
-    margin: auto;
+    width: 50%;
+    background-color: $gold;
+    opacity: 80%;
+    border-radius: 1rem;
     font-family: $font-family;
-    margin-bottom: 3rem;
     text-align: center;
-    margin-top: 3rem;
     color: black;
+    margin: auto;
+    padding: 10px;
   }
 
   .dashboard {
+    display: flex;
+    flex-direction: column;
+
     .dashboard-category {
+      opacity: 80%;
       display: flex;
       justify-content: space-around;
-      list-style: none;
-      padding: 10px 10px;
-      width: 70%;
-      background-color: #ebbf85;
-      opacity: 90%;
-      border-radius: 10px;
+      width: 40%;
+      padding: 10px;
+      background-color: $gold;
+      border-radius: 1rem;
       margin: auto;
       font-family: $font-family;
-      margin-bottom: 3rem;
-      text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
       color: black;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
+      font-weight: bold;
     }
 
-    .dashboard-info {
-      display: flex;
-      justify-content: space-between;
+    .dashboard-mail,
+    .dashboard-role {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      margin: auto;
+      gap: 1rem;
+      width: 80%;
+    }
+
+    ul {
+      background-color: $gold;
+      list-style-type: none;
+      padding: 20px 20px;
+      margin: 10px 0;
+      border-radius: 1rem;
+      text-align: center;
+    }
+
+    .remove-account,
+    .remove-admin,
+    .add-admin {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 5px;
+      border-radius: 0.5rem;
       font-family: $font-family;
 
-      .dashboard-mail,
-      .dashboard-role {
-        background-color: #ebbf85;
-        box-shadow: 0 0 10px 0 rgba(52, 42, 42, 0.1);
-      }
-
-      .dashboard-mail {
-        display: flex;
-        flex-direction: column;
-        margin-left: 15rem;
-        border-radius: 10px;
-        padding: 10px 60px;
-        font-size: 1rem;
-
-        .mail {
-          list-style: none;
-        }
-
-        .remove-account {
-          padding: 10px 20px;
-          margin-top: 1rem;
-          border-radius: 10px;
-          border: none;
-          font-size: 0.9rem;
-          cursor: pointer;
-          transition: all 0.3s ease-in-out;
-          color: black;
-        }
-      }
-
-      .dashboard-role {
-        display: flex;
-        flex-direction: column;
-        margin-right: 15rem;
-        padding: 10px 50px;
-        border-radius: 10px;
-        font-size: 1rem;
-
-        .role {
-          list-style: none;
-        }
-        .add-admin,
-        .remove-admin {
-          padding: 10px 20px;
-          margin-top: 1rem;
-          border-radius: 10px;
-          border: none;
-          font-size: 0.9rem;
-          cursor: pointer;
-          transition: all 0.3s ease-in-out;
-          color: black;
-        }
+      &:hover {
+        background-color: #c82333;
       }
     }
   }
@@ -116,38 +95,40 @@
 
 @media screen and (max-width: 650px) {
   .dashboardAdmin {
+    .title {
+      width: 80%;
+    }
     .dashboard {
-      .dashboard-info {
+      .dashboard-category {
+        width: 80%;
+      }
+
+      .dashboard-mail,
+      .dashboard-role {
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
-        .dashboard-mail,
-        .dashboard-role,
-        .dashboard-action {
-          width: 80%;
-        }
+      }
+    }
+  }
+}
 
-        .dashboard-mail,
-        .dashboard-role,
-        .dashboard-action {
-          padding: 10px 10px;
-          font-size: 1.2rem;
-          border-radius: 10px;
-          margin-bottom: 1rem;
-        }
-
-        .dashboard-mail,
-        .dashboard-role {
-          align-items: center;
-        }
-
-        .dashboard-mail {
-          margin-left: 0;
-        }
-
-        .dashboard-role {
-          margin-right: 0;
-        }
+@media screen and (min-width: 650px) and (max-width: 950px) {
+  .dashboardAdmin {
+    .title {
+      width: 80%;
+    }
+    .dashboard {
+      .dashboard-category {
+        width: 80%;
+      }
+      .dashboard-mail,
+      .dashboard-role {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
