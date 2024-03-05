@@ -21,8 +21,8 @@
     margin: auto;
     width: 40%;
     border-style: solid;
-    border-color: #ebbf85;
-    color: #ebbf85;
+    border-color: $gold;
+    color: $gold;
     text-align: center;
     border-radius: 30px;
     cursor: pointer;
@@ -49,7 +49,7 @@
 
       a,
       a:visited {
-        color: #ebbf85;
+        color: $gold;
       }
 
       .label {
@@ -110,10 +110,10 @@
         margin: auto;
         background-color: transparent;
         border-style: solid;
-        border-color: #ebbf85;
+        border-color: $gold;
         margin-top: 1rem;
         text-decoration: none;
-        color: #ebbf85;
+        color: $gold;
       }
     }
   }
@@ -135,10 +135,10 @@
       .button {
         margin-top: 1rem;
         text-decoration: none;
-        color: #ebbf85;
+        color: $gold;
 
         a {
-          color: #ebbf85;
+          color: $gold;
         }
       }
     }

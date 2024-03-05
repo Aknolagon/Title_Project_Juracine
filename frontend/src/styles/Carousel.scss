@@ -1,3 +1,5 @@
+@import "./variables";
+
 .carousel-container {
   display: flex;
   flex-direction: column;
@@ -44,18 +46,18 @@
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: whitesmoke;
+    color: $whitecolor;
     padding: 5px 10px;
     border-radius: 20px;
     transition: background-color 0.5s;
   }
 
   .carousel-button:hover {
-    background-color: whitesmoke;
+    background-color: $whitecolor;
   }
 
   .left-button {
-    background-color: #ebbf85;
+    background-color: $gold;
     opacity: 60%;
     border: none;
     font-size: 2.5rem;
@@ -72,7 +74,7 @@
   }
 
   .right-button {
-    background-color: #ebbf85;
+    background-color: $gold;
     opacity: 60%;
     border: none;
     font-size: 2.5rem;
@@ -105,7 +107,7 @@
     }
 
     .carousel-button:hover {
-      background-color: #ebbf85;
+      background-color: $gold;
       opacity: 100;
     }
   }

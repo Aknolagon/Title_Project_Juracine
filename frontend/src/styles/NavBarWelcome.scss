@@ -6,13 +6,13 @@
   justify-content: center;
   font-family: $font-family;
   font-size: 1.3rem;
-  color: #ebbf85;
+  color: $gold;
   display: flex;
   gap: 2rem;
 
   a {
     margin-top: 5rem;
     text-decoration: none;
-    color: #ebbf85;
+    color: $gold;
   }
 }
