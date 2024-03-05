@@ -1,8 +1,10 @@
+@import "./variables";
+
 .error-page {
   display: flex;
   flex-direction: column;
   p {
-    color: #ebbf85;
+    color: $gold;
     text-align: center;
     font-size: 3rem;
     width: 100vw;

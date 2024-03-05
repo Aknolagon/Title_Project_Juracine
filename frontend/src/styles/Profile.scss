@@ -8,7 +8,7 @@
 
   h1 {
     text-align: center;
-    color: whitesmoke;
+    color: $whitecolor;
   }
 
   .form {
@@ -18,7 +18,7 @@
     width: 100%;
 
     input {
-      background: #ebbf85;
+      background: $gold;
       color: black;
       border-radius: 1.4rem;
       padding: 10px 30px;
@@ -28,7 +28,7 @@
     }
 
     ::placeholder {
-      color: whitesmoke;
+      color: $whitecolor;
       font-size: 1.5rem;
       text-align: center;
     }
@@ -68,7 +68,7 @@
       border-radius: 1rem;
       cursor: pointer;
       transition: all 0.3s ease-in-out;
-      background: #ebbf85;
+      background: $gold;
       color: black;
     }
   }
@@ -87,7 +87,7 @@
       font-size: 1rem;
       border-radius: 1rem;
       transition: all 0.3s ease-in-out;
-      background: #ebbf85;
+      background: $gold;
       color: red;
     }
   }

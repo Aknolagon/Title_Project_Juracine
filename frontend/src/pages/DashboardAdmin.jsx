@@ -97,6 +97,11 @@ function DashboardAdmin() {
 
   const getRoleName = (roleId) => (roleId === 1 ? "Member" : "Admin");
 
+  const getRoleEmail = (userId) => {
+    const userMail = users.find((us) => us.id === userId);
+    return userMail ? userMail.email : "Email not found";
+  };
+
   const accountDelete = async (userId) => {
     try {
       await axios.delete(
@@ -124,58 +129,58 @@ function DashboardAdmin() {
       <h1 className="title">Member Management</h1>
       <section className="dashboard">
         <ul className="dashboard-category">
-          <li>Email & Id</li> ||
-          <li>Id & Role</li>
+          <li>Email || Member</li>
         </ul>
-        <div className="dashboard-info">
-          <div className="dashboard-mail">
-            {users.map((us) => (
-              <ul key={us.id}>
-                <li> Id : {us.id}</li>
-                <li className="mail"> {us.email}</li>
-                <li className="mail">
-                  <button
-                    className="remove-account"
-                    type="button"
-                    onClick={() => accountDelete(us.id)}
-                  >
-                    Delete Account
-                  </button>
+        <div className="dashboard-mail">
+          {users.map((us) => (
+            <ul key={us.id}>
+              <li> Member : {us.id}</li>
+              <li> Email : {us.email}</li>
+              <li>
+                <button
+                  className="remove-account"
+                  type="button"
+                  onClick={() => accountDelete(us.id)}
+                >
+                  Delete Account
+                </button>
+              </li>
+            </ul>
+          ))}
+        </div>
+        <ul className="dashboard-category">
+          <li>Roles</li>
+        </ul>
+        <div className="dashboard-role">
+          {roles.map((role) => {
+            const oneKey = `${role.user_id}-${role.role_id}`;
+            const isAdmin = role.role_id === 2;
+            return (
+              <ul key={oneKey}>
+                <li> {getRoleEmail(role.user_id)}</li>
+                <li> Role : {getRoleName(role.role_id)}</li>
+                <li>
+                  {isAdmin ? (
+                    <button
+                      type="button"
+                      className="remove-admin"
+                      onClick={() => removeRoleAdmin(role.user_id)}
+                    >
+                      Remove Admin role
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="add-admin"
+                      onClick={() => addNewRole(role.user_id)}
+                    >
+                      Give Admin role
+                    </button>
+                  )}
                 </li>
               </ul>
-            ))}
-          </div>
-          <div className="dashboard-role">
-            {roles.map((role) => {
-              const oneKey = `${role.user_id}-${role.role_id}`;
-              const isAdmin = role.role_id === 2;
-              return (
-                <ul key={oneKey}>
-                  <li> Id : {role.user_id}</li>
-                  <li className="role"> Role : {getRoleName(role.role_id)}</li>
-                  <li className="role">
-                    {isAdmin ? (
-                      <button
-                        type="button"
-                        className="remove-admin"
-                        onClick={() => removeRoleAdmin(role.user_id)}
-                      >
-                        Remove Admin role
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        className="add-admin"
-                        onClick={() => addNewRole(role.user_id)}
-                      >
-                        Give Admin role
-                      </button>
-                    )}
-                  </li>
-                </ul>
-              );
-            })}
-          </div>
+            );
+          })}
         </div>
       </section>
     </div>
