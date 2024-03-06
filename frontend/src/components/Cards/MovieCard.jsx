@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { useContext, useState } from "react";
 import "../../styles/MovieCard.scss";
 import { FavoritesContext } from "../../contexts/FavoritesContext";
-import InfoCardMovie from "../InfoCardMovie";
+import InfoCardMovie from "./InfoCardMovie";
 
 function MovieCard({ movieId }) {
   const [posterPath, setPosterPath] = useState("");
