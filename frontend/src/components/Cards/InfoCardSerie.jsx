@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import closeIcon from "../assets/closeIcon.png";
-import "../styles/InfoCardMovie.scss";
-import Rating from "./Rating";
+import closeIcon from "../../assets/closeIcon.png";
+import "../../styles/InfoCardSerie.scss";
+import Rating from "../Rating";
 
-function InfoCardMovie({ movie, onClose }) {
-  if (!movie) {
+function InfoCardSerie({ serie, onClose }) {
+  if (!serie) {
     return null;
   }
 
@@ -16,35 +16,35 @@ function InfoCardMovie({ movie, onClose }) {
 
     return `${day}-${month}-${year}`;
   }
-  const formattedReleaseDate = formatDate(movie.release_date);
+  const formattedReleaseDate = formatDate(serie.release_date);
 
   return (
-    <section className="info-card-movie">
+    <section className="info-card-serie">
       <button
         type="button"
         className="close-button"
         onClick={onClose}
         aria-label="close"
       >
-        <img src={closeIcon} alt="closed" />
+        <img src={closeIcon} alt="close" />
       </button>
-      <h1 id="dialogTitleMovie" className="movieTitle">
-        {movie.title}
+      <h1 id="dialogTitleSerie" className="serieTitle">
+        {serie.title}
       </h1>
-      <p className="synopsis">{movie.overview}</p>
+      <p className="synopsis">{serie.overview}</p>
       <p className="release">Release Date : {formattedReleaseDate}</p>
-      {movie.trailerKey && (
+      {serie.trailerKey && (
         <iframe
           title="Trailer"
           width="560"
           height="315"
-          src={`https://www.youtube.com/embed/${movie.trailerKey}`}
+          src={`https://www.youtube.com/embed/${serie.trailerKey}`}
           allowFullScreen
         />
       )}
       <div className="actors">
-        {movie.cast &&
-          movie.cast.slice(0, 2).map((actor) => (
+        {serie.cast &&
+          serie.cast.slice(0, 2).map((actor) => (
             <div key={actor.id} className="actor">
               {actor.profile_path && (
                 <img
@@ -57,14 +57,14 @@ function InfoCardMovie({ movie, onClose }) {
           ))}
       </div>
       <p className="rating-title">
-        Rating : <Rating rating={movie.rating} />
+        Rating : <Rating rating={serie.rating} />
       </p>
     </section>
   );
 }
 
-InfoCardMovie.propTypes = {
-  movie: PropTypes.shape({
+InfoCardSerie.propTypes = {
+  serie: PropTypes.shape({
     title: PropTypes.string,
     overview: PropTypes.string,
     release_date: PropTypes.string,
@@ -81,8 +81,8 @@ InfoCardMovie.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-InfoCardMovie.defaultProps = {
-  movie: null,
+InfoCardSerie.defaultProps = {
+  serie: null,
 };
 
-export default InfoCardMovie;
+export default InfoCardSerie;

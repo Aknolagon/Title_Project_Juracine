@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { useContext, useState } from "react";
 import "../../styles/SerieCard.scss";
 import { FavoritesContext } from "../../contexts/FavoritesContext";
-import InfoCardSerie from "../InfoCardSerie";
+import InfoCardSerie from "./InfoCardSerie";
 
 function SerieCard({ serieId }) {
   const [posterPath, setPosterPath] = useState("");

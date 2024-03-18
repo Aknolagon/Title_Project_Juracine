@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {
-  createBrowserRouter,
-  RouterProvider,
   Navigate,
+  RouterProvider,
+  createBrowserRouter,
 } from "react-router-dom";
-
 import App from "./App";
+import { UserProvider } from "./contexts/UserContext";
 import About from "./pages/About";
+import DashboardAdmin from "./pages/DashboardAdmin";
 import ErrorPage from "./pages/ErrorPage";
 import Favorites from "./pages/Favorites";
 import Home from "./pages/Home";
@@ -17,8 +18,6 @@ import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import Series from "./pages/Series";
 import Welcome from "./pages/Welcome";
-import DashboardAdmin from "./pages/DashboardAdmin";
-import { UserProvider } from "./contexts/UserContext";
 
 const isAuthentificated = () => {
   const userToken = sessionStorage.getItem("userToken");
