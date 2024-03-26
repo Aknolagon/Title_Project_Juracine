@@ -1,11 +1,9 @@
 import PropTypes from "prop-types";
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useMemo, useState } from "react";
 
-export const FavoritesContext = createContext();
+const FavoritesContext = createContext();
 
-export const useFavorites = () => useContext(FavoritesContext);
-
-export function FavoritesProvider({ children }) {
+function FavoritesProvider({ children }) {
   const [favorites, setFavorites] = useState([]);
 
   const addFavorite = (item) => {
@@ -33,6 +31,8 @@ export function FavoritesProvider({ children }) {
     </FavoritesContext.Provider>
   );
 }
+
+export { FavoritesContext, FavoritesProvider };
 
 FavoritesProvider.propTypes = {
   children: PropTypes.node.isRequired,

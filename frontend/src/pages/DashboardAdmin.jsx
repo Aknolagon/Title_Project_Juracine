@@ -90,8 +90,9 @@ function DashboardAdmin() {
         title: "Role removed successfully!",
         text: "Member is no longer admin.",
       });
+      fetchUsers();
     } catch (error) {
-      console.error("Error deleting account:", error);
+      console.error("Error deleting role:", error);
     }
   };
 
@@ -118,6 +119,7 @@ function DashboardAdmin() {
         icon: "success",
       });
       navigate("/dashboard");
+      fetchUsers();
     } catch (error) {
       console.error("Error deleting account:", error);
     }

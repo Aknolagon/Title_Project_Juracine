@@ -26,7 +26,7 @@ managers.forEach((ManagerClass) => {
 
 // Use a Proxy to customize error messages when trying to access a non-existing table
 
-// Export the Proxy instance with custom error handling
+// Export the Proxy instance with custom error handling as an overlay
 module.exports = new Proxy(tables, {
   get(obj, prop) {
     // Check if the property (table) exists in the tables object
