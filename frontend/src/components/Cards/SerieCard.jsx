@@ -79,7 +79,7 @@ function SerieCard({ serieId }) {
     if (isFavorite) {
       removeFavorite(serieId);
     } else {
-      addFavorite({ id: serieId, type: "serie", ...serieDetails }, "serie");
+      addFavorite({ id: serieId, type: "serie", ...serieDetails });
     }
   };
 
