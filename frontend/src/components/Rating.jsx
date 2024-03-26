@@ -8,12 +8,10 @@ function Rating({ rating }) {
   }
 
   const starRating = Math.round(rating / 2);
-  const uniqueId = rating.toString().replace(".", "_");
 
   return (
     <div className="rating">
-      {[...Array(5)].map((_, index) => {
-        const key = `star-${uniqueId}-${index + 1}`;
+      {[...Array(5)].map((key, index) => {
         return (
           <span key={key} className={index < starRating ? "filled" : ""}>
             ★

@@ -6,6 +6,8 @@ import MovieCard from "./Cards/MovieCard";
 function CarouselMovies({ movies }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const visibleMovies = movies.slice(currentIndex, currentIndex + 5);
+
   const handleNext = () => {
     setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, movies.length - 5));
   };
@@ -13,8 +15,6 @@ function CarouselMovies({ movies }) {
   const handlePrevious = () => {
     setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
-
-  const visibleMovies = movies.slice(currentIndex, currentIndex + 5);
 
   return (
     <div className="carousel-container">
