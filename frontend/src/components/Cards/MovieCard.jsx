@@ -74,7 +74,7 @@ function MovieCard({ movieId }) {
     if (isFavorite) {
       removeFavorite(movieId);
     } else {
-      addFavorite({ id: movieId, type: "movie", ...movieDetails }, "movie");
+      addFavorite({ id: movieId, type: "movie", ...movieDetails });
     }
   };
 
