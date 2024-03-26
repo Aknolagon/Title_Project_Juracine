@@ -73,7 +73,6 @@ function Login() {
                 type="mail"
                 id="email-co"
                 required
-                aria-describedby="uidnote"
               />
             </label>
             <label className="label" id="form-co-pass" htmlFor="password-co">
@@ -85,7 +84,6 @@ function Login() {
                 id="password-co"
                 required
                 onChange={(e) => setValidPwd(e.target.value)}
-                aria-describedby="pwdnote"
               />
             </label>
             <button

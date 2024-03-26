@@ -13,11 +13,11 @@ const browse = async (req, res, next) => {
 // Read user roles
 const read = async (req, res, next) => {
   try {
-    const favorite = await tables.user_roles.readUserRoles(req.params.user_id);
-    if (favorite == null) {
+    const userRoles = await tables.user_roles.readUserRoles(req.params.user_id);
+    if (userRoles == null) {
       res.sendStatus(404);
     } else {
-      res.json(favorite);
+      res.json(userRoles);
     }
   } catch (err) {
     next(err);
